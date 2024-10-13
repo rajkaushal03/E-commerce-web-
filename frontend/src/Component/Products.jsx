@@ -8,7 +8,7 @@ const Products = ({ products, setCart, cart, select }) => {
 
   return (
     <>
-      <div className="flex flex-wrap w-full  h-full  gap-8 py-8 px-6">
+      <div className="flex flex-wrap w-full  justify-center  h-full  gap-8 py-8 px-6">
         {filteredProducts.map((product, index) => {
           const isInCart = cart.some((item) => item.id === product.id);
           return (

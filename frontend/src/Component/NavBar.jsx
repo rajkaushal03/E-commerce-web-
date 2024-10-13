@@ -1,12 +1,8 @@
-import { useEffect } from "react";
 import { useAuthContext } from "../context/AuthContext";
 
 const NavBar = ({ cart, total, isCartVisible, setIsCartVisible }) => {
   const { authUser, setAuthUser } = useAuthContext();
 
-  useEffect(()=>{
-    console.log("authuser is here ",authUser)
-  },[authUser])
 
   const handleLogout = async () => {
     try {
@@ -70,16 +66,15 @@ const NavBar = ({ cart, total, isCartVisible, setIsCartVisible }) => {
 
         {/* profile  */}
         <div className="dropdown dropdown-end">
-          <div
-            tabIndex={0}
-            role="button"
+          {/* <div
             className="btn btn-ghost btn-circle avatar"
           >
             <div className="w-10 rounded-full">
-              <img
-                src={authUser?.picture}
-                alt="u"
-              />
+            </div>
+          </div> */}
+          <div tabIndex={0} role="button" className=" btn btn-ghost btn-circle avatar">
+            <div className="ring-primary ring-offset-base-100 w-10 rounded-full ring ring-offset-2">
+              <img src={authUser?.picture} alt="u" />
             </div>
           </div>
           <ul

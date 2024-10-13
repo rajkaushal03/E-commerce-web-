@@ -32,7 +32,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api", products);
 
 app.get("*", (req, res) => {
-    res.send(`Hello ${req.user.name}`);
+    res.send(`Hello `);
 });
 
 

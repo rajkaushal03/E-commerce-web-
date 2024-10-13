@@ -6,7 +6,7 @@ import { useAuthContext } from "./context/AuthContext";
 
 const App = () => {
   const { authUser } = useAuthContext();
-  console.log("Authenticated user:", authUser);
+  // console.log("Authenticated user:", authUser);
 
   return (
     <>
