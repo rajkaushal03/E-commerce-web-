@@ -1,7 +1,7 @@
 import { useAuthContext } from "../context/AuthContext";
 
 const Profile = () => {
-  const { authUser, setAuthUser } = useAuthContext();
+  const { authUser} = useAuthContext();
 
   return (
     <div className=" flex justify-center items-center w-screen h-screen bg-gray-600">

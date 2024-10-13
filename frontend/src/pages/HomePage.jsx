@@ -6,18 +6,13 @@ import { ToastContainer } from "react-toastify";
 import SideBar from "../Component/SideBar";
 import { fetchProducts } from "../utils/function";
 
-
-
-
 const HomePage = () => {
-    const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState([]);
   const [select, setSelect] = useState("All");
   const [cart, setCart] = useState([]);
   const [total, setTotal] = useState(0);
   const [isCartVisible, setIsCartVisible] = useState(false);
   const [Quantity, setQuantity] = useState([]);
-
- 
 
   useEffect(() => {
     fetchProducts(setProducts);
@@ -47,39 +42,43 @@ const HomePage = () => {
     // console.log(sum); // Log the total directly
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [Quantity, cart]);
-    return (
-        <>
-          <NavBar
+  return (
+    <>
+      <NavBar
+        cart={cart}
+        total={total}
+        setTotal={setTotal}
+        isCartVisible={isCartVisible}
+        setIsCartVisible={setIsCartVisible}
+      />
+      <div className="flex ">
+        {!isCartVisible ? (
+          <>
+            <SideBar
+              products={products}
+              setSelect={setSelect}
+              select={select}
+            />
+            <Products
+              products={products}
+              setCart={setCart}
+              cart={cart}
+              select={select}
+            />
+          </>
+        ) : (
+          <Cart
             cart={cart}
             total={total}
-            setTotal={setTotal}
+            Quantity={Quantity}
+            setQuantity={setQuantity}
             isCartVisible={isCartVisible}
-            setIsCartVisible={setIsCartVisible}
           />
-          <div className="flex ">
-            {!isCartVisible ? (
-              <>
-                <SideBar products={products} setSelect={setSelect} select={select} />
-                <Products
-                  products={products}
-                  setCart={setCart}
-                  cart={cart}
-                  select={select}
-                />
-              </>
-            ) : (
-              <Cart
-                cart={cart}
-                total={total}
-                Quantity={Quantity}
-                setQuantity={setQuantity}
-                isCartVisible={isCartVisible}
-              />
-            )}
-          </div>
-          <ToastContainer />
-        </>
-      );
-}
+        )}
+      </div>
+      <ToastContainer />
+    </>
+  );
+};
 
-export default HomePage
+export default HomePage;
