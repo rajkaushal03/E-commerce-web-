@@ -1,4 +1,23 @@
+import { useEffect } from "react";
+import { useAuthContext } from "../context/AuthContext";
+
 const NavBar = ({ cart, total, isCartVisible, setIsCartVisible }) => {
+  const { authUser, setAuthUser } = useAuthContext();
+
+  useEffect(()=>{
+    console.log("authuser is here ",authUser)
+  },[authUser])
+
+  const handleLogout = async () => {
+    try {
+      const res = await fetch("/api/auth/logout", { credentials: "include" });
+      const data = await res.json();
+      console.log(data);
+      setAuthUser(null);
+    } catch (error) {
+      alert(error.message);
+    }
+  };
   return (
     <div className="navbar bg-base-100  border-b-2">
       <div className="flex-1">
@@ -58,8 +77,8 @@ const NavBar = ({ cart, total, isCartVisible, setIsCartVisible }) => {
           >
             <div className="w-10 rounded-full">
               <img
-                alt="Tailwind CSS Navbar component"
-                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                src={authUser?.picture}
+                alt="u"
               />
             </div>
           </div>
@@ -83,7 +102,7 @@ const NavBar = ({ cart, total, isCartVisible, setIsCartVisible }) => {
                 />
               </a>
             </li>
-            <li>
+            <li onClick={handleLogout}>
               <a>Logout</a>
             </li>
           </ul>
