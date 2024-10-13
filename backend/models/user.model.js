@@ -2,30 +2,31 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
   {
-    username: {
+    googleId: {
       type: String,
       required: true,
-      unique: true,
+      unique: true,  // Google ID should be unique for each user
     },
     name: {
       type: String,
-      default: "", //
+      required: true,  // The user's display name
     },
-    profileUrl: {
+    email: {
       type: String,
       required: true,
+      unique: true,  // Email must also be unique
     },
-    avatarUrl: {
+    picture: {
       type: String,
+      required: true,  // Store profile picture URL
     },
     cart: {
       type: [String],
-      default: [],
+      default: [],  // Default an empty cart
     },
   },
   { timestamps: true }
 );
 
 const User = mongoose.model("User", userSchema);
-
 export default User;
