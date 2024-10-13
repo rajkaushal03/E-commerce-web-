@@ -1,8 +1,8 @@
+import { Link } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
 
 const NavBar = ({ cart, total, isCartVisible, setIsCartVisible }) => {
   const { authUser, setAuthUser } = useAuthContext();
-
 
   const handleLogout = async () => {
     try {
@@ -72,7 +72,11 @@ const NavBar = ({ cart, total, isCartVisible, setIsCartVisible }) => {
             <div className="w-10 rounded-full">
             </div>
           </div> */}
-          <div tabIndex={0} role="button" className=" btn btn-ghost btn-circle avatar">
+          <div
+            tabIndex={0}
+            role="button"
+            className=" btn btn-ghost btn-circle avatar"
+          >
             <div className="ring-primary ring-offset-base-100 w-10 rounded-full ring ring-offset-2">
               <img src={authUser?.picture} alt="u" />
             </div>
@@ -81,12 +85,14 @@ const NavBar = ({ cart, total, isCartVisible, setIsCartVisible }) => {
             tabIndex={0}
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
           >
-            <li>
-              <a className="justify-between">
-                Profile
-                <span className="badge">New</span>
-              </a>
-            </li>
+            <Link to="/profile">
+              <li>
+                <a className=" flex justify-between">
+                  Profile
+                  <span className="badge">New</span>
+                </a>
+              </li>
+            </Link>
             <li>
               <a className=" flex justify-between">
                 Theme
