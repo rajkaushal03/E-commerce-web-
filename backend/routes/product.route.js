@@ -2,6 +2,7 @@
 
 import express from "express";
 import fetch from "node-fetch";
+import { ensureAuthenticated } from "../middleware/ensrueAuthenticated.js";
 
 const router = express.Router();
 
@@ -24,6 +25,6 @@ const fetchProducts = async (req, res) => {
   }
 };
 
-router.get("/products", fetchProducts);
+router.get("/products", ensureAuthenticated ,fetchProducts);
 
 export default router;

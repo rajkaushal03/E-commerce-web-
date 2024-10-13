@@ -13,7 +13,6 @@ router.get(
 router.get(
   "/google/callback",
   passport.authenticate("google", {
-    successRedirect: process.env.CLIENT_BASE_URL + "/api/protected",
     failureRedirect: process.env.CLIENT_BASE_URL + "/login",
   }),
   function (req, res) {
