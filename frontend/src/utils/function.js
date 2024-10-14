@@ -34,7 +34,7 @@ export const handleAddToCart = async (product, setCart, cart, authUser) => {
       }
 
       const data = await response.json();
-      console.log(data.message); // Handle success message if needed
+      console.log(data); // Handle success message if needed
     } catch (error) {
       console.error("Error adding to cart:", error);
       // Optionally remove the product from local cart if the API call fails
@@ -45,31 +45,35 @@ export const handleAddToCart = async (product, setCart, cart, authUser) => {
   }
 };
 
-export const handleRemoveFromCart = async (product, cart, setCart, authUser) => {
-  // Update local cart state by filtering out the product
+export const handleRemoveFromCart = async (
+  product,
+  cart,
+  setCart,
+  authUser
+) => {
   const updatedCart = cart.filter((item) => item.id !== product.id);
   setCart(updatedCart);
 
-  // API call to remove the product from the user's cart in the database
+  // API call to remove product from the user's cart in the database
   if (authUser) {
     try {
       const response = await fetch(`/api/cart/remove-from-cart`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           productId: product.id,
-          userId: authUser._id,
+          userId: authUser._id, // Ensure userId is passed with the request
         }),
       });
 
       if (!response.ok) {
-        throw new Error('Failed to remove product from cart');
+        throw new Error("Failed to remove product from cart");
       }
 
       const data = await response.json();
-      console.log(data.message); // Handle success message if needed
+      console.log(data); // Handle success message if needed
     } catch (error) {
       console.error("Error removing from cart:", error);
       // Optionally revert the local cart to the previous state if the API call fails
@@ -77,7 +81,6 @@ export const handleRemoveFromCart = async (product, cart, setCart, authUser) => 
     }
   }
 };
-
 
 export const handleQuantity = (cartId, Quantity, setQuantity, change) => {
   const changeAmount = parseInt(change);

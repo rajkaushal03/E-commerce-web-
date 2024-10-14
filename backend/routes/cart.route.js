@@ -48,30 +48,35 @@ router.post("/add-to-cart", async (req, res) => {
 
 // Route to remove a product from the cart
 router.post("/remove-from-cart", async (req, res) => {
-  const { productId, userId } = req.body;
-
-  // Check if the user is authenticated
-  if (!userId) {
-    return res.status(401).json({ message: "User not authenticated." });
-  }
-
-  try {
-    // Find the user by userId
-    const user = await User.findById(userId);
-
-    // Filter the user's cart to remove the product with the matching productId
-    user.cart = user.cart.filter((item) => item !== productId);
-
-    // Save the updated user data
-    await user.save();
-
-    // Send a success response with the updated cart
-    res
-      .status(200)
-      .json({ message: "Product removed from cart", cart: user.cart });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
+    const { productId, userId } = req.body;
+  
+    if (!userId) {
+      return res.status(401).json({ message: "User not authenticated." });
+    }
+  
+    try {
+      // Find the user by their ID
+      const user = await User.findById(userId);
+  
+      // Ensure user exists
+      if (!user) {
+        return res.status(404).json({ message: "User not found." });
+      }
+  
+      // Remove the product from the user's cart
+      user.cart = user.cart.filter(
+        (item) => item.productId.toString() !== productId.toString()
+      );
+  
+      // Save the updated user to the database
+      await user.save();
+  
+      // Respond with the updated cart
+      res.status(200).json({ message: "Product removed from cart", cart: user.cart });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  });
+  
 
 export default router;

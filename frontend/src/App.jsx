@@ -7,7 +7,7 @@ import Profile from "./Component/Profile";
 
 const App = () => {
   const { authUser } = useAuthContext();
-  // console.log("Authenticated user:", authUser);
+  console.log("Authenticated user:", authUser);
 
   return (
     <>
