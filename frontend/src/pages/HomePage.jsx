@@ -4,7 +4,7 @@ import Products from "../Component/Products";
 import NavBar from "../Component/NavBar";
 import { ToastContainer } from "react-toastify";
 import SideBar from "../Component/SideBar";
-import { fetchProducts } from "../utils/function";
+import { fetchCartProducts, fetchProducts } from "../utils/function";
 
 const HomePage = () => {
   const [products, setProducts] = useState([]);
@@ -17,7 +17,10 @@ const HomePage = () => {
   useEffect(() => {
     fetchProducts(setProducts);
   }, []);
-
+  useEffect(() => {
+    fetchCartProducts(setCart);
+  }, []);
+  // console.log("cart", cart);
   useEffect(() => {
     setQuantity((prevQuantity) => {
       const updatedQuantity = cart.map((item) => {

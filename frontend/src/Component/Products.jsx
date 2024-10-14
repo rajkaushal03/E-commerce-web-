@@ -4,6 +4,7 @@ import { useAuthContext } from "../context/AuthContext";
 const Products = ({ products, setCart, cart, select }) => {
 
   const {authUser} = useAuthContext();
+//  console.log("product cart" , cart);
 
   const filteredProducts =
     select === "All"
@@ -13,12 +14,13 @@ const Products = ({ products, setCart, cart, select }) => {
   return (
     <>
       <div className="flex flex-wrap w-full  justify-center  h-full  gap-8 py-8 px-6">
-        {filteredProducts.map((product, index) => {
-          const isInCart = cart.some((item) => item.id === product.id);
+        {filteredProducts.map((product) => {
+          const isInCart = cart.some((item) => item.productId == product.id);
+          // console.log("is in cart" , isInCart)
           return (
             <div
               className="w-1/5 h-94 shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] cursor-pointer rounded-3xl  flex flex-col  gap-6"
-              key={index}
+              key={product.id}
             >
               {/* image */}
               <div className="bg-white rounded-t-3xl px-2">

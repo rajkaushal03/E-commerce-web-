@@ -20,8 +20,8 @@ const fetchProducts = async (req, res) => {
     console.log(res);
     // setCart(data);
   } catch (error) {
-    console.error("Error fetching recipes:", error);
-    res.status(500).json({ error: "Failed to fetch recipes" });
+    console.error("Error fetching products:", error);
+    res.status(500).json({ error: "Failed to fetch products" });
   }
 };
 
