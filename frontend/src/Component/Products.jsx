@@ -1,6 +1,10 @@
 import { handleAddToCart, handleRemoveFromCart } from "../utils/function";
+import { useAuthContext } from "../context/AuthContext";
 
 const Products = ({ products, setCart, cart, select }) => {
+
+  const {authUser} = useAuthContext();
+
   const filteredProducts =
     select === "All"
       ? products // Show all products if "All" is selected
@@ -36,9 +40,9 @@ const Products = ({ products, setCart, cart, select }) => {
                   className=" flex justify-between h-1/2 items-center px-4"
                   onClick={() => {
                     if (isInCart) {
-                      return handleRemoveFromCart(product, cart, setCart);
+                      return handleRemoveFromCart(product, cart, setCart, authUser);
                     }
-                    return handleAddToCart(product, setCart, cart);
+                    return handleAddToCart(product, setCart, cart,authUser);
                   }}
                 >
                   <span className="text-md font-bold ">${product.price}</span>

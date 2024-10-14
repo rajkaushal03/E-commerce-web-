@@ -31,7 +31,7 @@ passport.use(
 
       if (!user) {
         // If not, create a new user
-        newUser = new User({
+        const newUser = new User({
           googleId: profile.id,
           name: profile.displayName,
           email: profile.emails[0].value, // Use the first email
