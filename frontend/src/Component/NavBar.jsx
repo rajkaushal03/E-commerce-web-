@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
+import { toggleTheme } from "../lib/function";
 
-const NavBar = ({ cart, total }) => {
+const NavBar = ({ cart, total ,theme , setTheme }) => {
   const { authUser, setAuthUser } = useAuthContext();
 
   const handleLogout = async () => {
@@ -61,12 +62,6 @@ const NavBar = ({ cart, total }) => {
 
         {/* profile  */}
         <div className="dropdown dropdown-end">
-          {/* <div
-            className="btn btn-ghost btn-circle avatar"
-          >
-            <div className="w-10 rounded-full">
-            </div>
-          </div> */}
           <div
             tabIndex={0}
             role="button"
@@ -89,12 +84,13 @@ const NavBar = ({ cart, total }) => {
               </li>
             </Link>
             <li>
-              <a className=" flex justify-between">
+              <a className=" flex justify-between">   
                 Theme
                 <input
                   type="checkbox"
-                  value="dark"
+                  checked={theme === "dark"} onChange={()=>toggleTheme(setTheme)}
                   className="toggle theme-controller col-span-2 col-start-1 row-start-1 border-sky-400 bg-amber-300 [--tglbg:theme(colors.sky.500)] checked:border-blue-800 checked:bg-blue-300 checked:[--tglbg:theme(colors.blue.900)]"
+                  
                 />
               </a>
             </li>

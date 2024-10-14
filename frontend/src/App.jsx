@@ -13,6 +13,13 @@ const App = () => {
   const [cart, setCart] = useState([]);
   const [products, setProducts] = useState([]);
   const [total, setTotal] = useState(0);
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+
+  // Apply the theme on component mount and whenever it changes
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme); // Store theme in localStorage
+  }, [theme]);
 
   useEffect(() => {
     fetchProducts(setProducts);
@@ -37,38 +44,11 @@ const App = () => {
   return (
     <>
       <Routes>
-        <Route
-          path="/"
-          element={
-            !authUser ? (
-              <SignupPage />
-            ) : (
-              <HomePage
-                cart={cart}
-                setCart={setCart}
-                total={total}
-                setTotal={setTotal}
-                products={products}
-              />
-            )
-          }
-        />
+        <Route path="/" element={ !authUser ? ( <SignupPage /> ) : ( <HomePage cart={cart} setCart={setCart}  total={total} setTotal={setTotal} products={products} setTheme={setTheme} theme={theme} /> ) } />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignupPage />} />
-        <Route
-          path="/profile"
-          element={!authUser ? <SignupPage /> : <Profile />}
-        />
-        <Route
-          path="/cart"
-          element={
-            !authUser ? (
-              <SignupPage />
-            ) : (
-              <Cart cart={cart} setCart={setCart} total={total} />
-            )
-          }
-        />
+        <Route path="/profile" element={!authUser ? <SignupPage /> : <Profile />}/>
+        <Route path="/cart" element={ !authUser ? ( <SignupPage /> ) : ( <Cart cart={cart} setCart={setCart} total={total} theme={theme} setTheme={setTheme} /> )} / >
       </Routes>
     </>
   );
