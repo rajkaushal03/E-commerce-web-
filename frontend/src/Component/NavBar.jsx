@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
 
-const NavBar = ({ cart, total, isCartVisible, setIsCartVisible }) => {
+const NavBar = ({ cart, total }) => {
   const { authUser, setAuthUser } = useAuthContext();
 
   const handleLogout = async () => {
@@ -51,14 +51,9 @@ const NavBar = ({ cart, total, isCartVisible, setIsCartVisible }) => {
               <span className="text-lg font-bold">{cart.length} Items</span>
               <span className="text-info">Subtotal: ${total}</span>
               <div className="card-actions">
-                <button
-                  className="btn btn-primary btn-block "
-                  onClick={() => {
-                    setIsCartVisible((prev) => !prev);
-                  }}
-                >
-                  {!isCartVisible ? "View Cart" : "Hide Cart"}
-                </button>
+                <Link className="btn btn-primary btn-block " to="/cart">
+                  View Cart
+                </Link>
               </div>
             </div>
           </div>

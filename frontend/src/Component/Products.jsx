@@ -42,7 +42,7 @@ const Products = ({ products, setCart, cart, select }) => {
                   className=" flex justify-between h-1/2 items-center px-4"
                   onClick={() => {
                     if (isInCart) {
-                      return handleRemoveFromCart(product, cart, setCart, authUser);
+                      return handleRemoveFromCart(product.id, cart, setCart, authUser);
                     }
                     return handleAddToCart(product, setCart, cart,authUser);
                   }}

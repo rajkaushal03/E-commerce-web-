@@ -47,16 +47,7 @@ export const handleAddToCart = async (product, setCart, cart, authUser) => {
   // fetchCartProducts(setCart);
 };
 
-export const handleRemoveFromCart = async (
-  product,
-  cart,
-  setCart,
-  authUser
-) => {
-  // const updatedCart = cart.filter((item) => item.productId !== product.id);
-  // setCart(updatedCart);
-
-  // API call to remove product from the user's cart in the database
+export const handleRemoveFromCart = async (productId, cart, setCart, authUser) => {
   if (authUser) {
     try {
       const response = await fetch(`/api/cart/remove-from-cart`, {
@@ -65,7 +56,7 @@ export const handleRemoveFromCart = async (
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          productId: product.id,
+          productId: productId, // Correctly passing productId
           userId: authUser._id, // Ensure userId is passed with the request
         }),
       });
@@ -75,17 +66,16 @@ export const handleRemoveFromCart = async (
       }
 
       const data = await response.json();
-      setCart(data.cart);
+      setCart(data.cart); // Update the cart with the response from server
 
-      // console.log(data); // Handle success message if needed
     } catch (error) {
       console.error("Error removing from cart:", error);
       // Optionally revert the local cart to the previous state if the API call fails
       setCart(cart);
     }
   }
-  // fetchCartProducts(setCart);
 };
+
 
 export const handleQuantityChange = async (productId,authUser, setCart,  change) => {
   // Call the function to update the quantity in the database
