@@ -5,7 +5,8 @@ import { ensureAuthenticated } from "../middleware/ensrueAuthenticated.js";
 const router = express.Router();
 
 // Route to add a product to the cart
-router.post("/add-to-cart", async (req, res) => {
+router.post("/add-to-cart",
+   async (req, res) => {
   const {
     productId,
     userId,
@@ -24,7 +25,7 @@ router.post("/add-to-cart", async (req, res) => {
   try {
     const user = await User.findById(userId);
     const isProductInCart = user.cart.some(
-      (item) => item.productId === productId
+      (item) => item.productId == productId
     );
 
     if (!isProductInCart) {
@@ -94,5 +95,39 @@ const fetchcart = async (req, res) => {
     console.error("Error fetching cart:", error);
   }
 };
+
+// Route to update product quantity in the cart
+router.post("/quantity", async (req, res) => {
+  const { productId, userId, quantityChange } = req.body;
+
+  if (!userId) {
+    return res.status(401).json({ message: "User not authenticated." });
+  }
+
+  try {
+    const user = await User.findById(userId);
+    
+    if (!user) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    // Find the product in the user's cart
+    const cartItem = user.cart.find((item) => item.productId === productId);
+    
+    if (!cartItem) {
+      return res.status(404).json({ message: "Product not found in cart." });
+    }
+
+    // Update the quantity (ensure it stays >= 1)
+    cartItem.quantity = Math.max(cartItem.quantity + quantityChange, 1);
+
+    await user.save();
+
+    res.status(200).json({ message: "Cart updated", cart: user.cart });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 router.get('/database' , ensureAuthenticated, fetchcart)
 export default router;

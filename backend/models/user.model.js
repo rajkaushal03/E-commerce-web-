@@ -26,6 +26,7 @@ const userSchema = new mongoose.Schema(
           productId: String,
           title: String,
           price: Number,
+          quantity:{ type: Number, default: 1 },
           description: String,
           category: String,
           image: String,

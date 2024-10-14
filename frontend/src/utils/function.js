@@ -87,18 +87,34 @@ export const handleRemoveFromCart = async (
   // fetchCartProducts(setCart);
 };
 
-export const handleQuantity = (cartId, Quantity, setQuantity, change) => {
-  const changeAmount = parseInt(change);
+export const handleQuantityChange = async (productId,authUser, setCart,  change) => {
+  // Call the function to update the quantity in the database
+  await updateCartQuantity(productId, authUser._id, change, setCart);
+};
 
-  const updatedQuantities = Quantity.map((element) => {
-    if (element.id === cartId) {
-      const newQuantity = Math.max(element.quantity + changeAmount, 1);
-      return { ...element, quantity: newQuantity };
+export const updateCartQuantity = async (productId, userId, change, setCart) => {
+  try {
+    const response = await fetch(`/api/cart/quantity`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        productId: productId,
+        userId: userId,
+        quantityChange: change, // +1 or -1 based on button clicked
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to update cart quantity");
     }
-    return element;
-  });
-  // console.log(updatedQuantities);
-  setQuantity(updatedQuantities);
+
+    const data = await response.json();
+    setCart(data.cart); // Update the local cart state with the new data
+  } catch (error) {
+    console.error("Error updating cart quantity:", error);
+  }
 };
 
 // fetch api

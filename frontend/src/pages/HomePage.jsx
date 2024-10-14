@@ -16,10 +16,10 @@ const HomePage = () => {
 
   useEffect(() => {
     fetchProducts(setProducts);
-  }, []);
-  useEffect(() => {
     fetchCartProducts(setCart);
   }, []);
+
+  
   // console.log("cart", cart);
   useEffect(() => {
     setQuantity((prevQuantity) => {
@@ -73,8 +73,7 @@ const HomePage = () => {
           <Cart
             cart={cart}
             total={total}
-            Quantity={Quantity}
-            setQuantity={setQuantity}
+            setCart={setCart}
             isCartVisible={isCartVisible}
           />
         )}
