@@ -4,7 +4,7 @@ import SignupPage from "./pages/SignupPage";
 import LoginPage from "./pages/LoginPage";
 import { useAuthContext } from "./context/AuthContext";
 import Profile from "./Component/Profile";
-import Cart from "./Component/Cart";
+import Cart from "./pages/Cart";
 import { useEffect, useState } from "react";
 import { fetchCartProducts, fetchProducts } from "./utils/function";
 
