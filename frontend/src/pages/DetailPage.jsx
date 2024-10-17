@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { handleAddToCart, handleRemoveFromCart } from "../utils/function";
 import { useAuthContext } from "../context/AuthContext";
 
@@ -8,9 +8,8 @@ const DetailPage = ({ cart, setCart }) => {
 
   const location = useLocation();
   let { product, cartItem } = location.state || {};
-  if(!product)
-  {
-    product = cartItem
+  if (!product) {
+    product = cartItem;
   }
   const isInCart = cart.some((item) => item.id == product.id);
   return (
@@ -24,7 +23,7 @@ const DetailPage = ({ cart, setCart }) => {
           />
         </div>
 
-        <div className="text-5xl font-semibold text-gray-900 bg-gray-600 flex items-center h-full dark:text-white p-2">
+        <div className="text-5xl font-semibold text-center text-gray-900 bg-gray-600 flex items-center h-full dark:text-white p-2">
           {product.category.toUpperCase()}
         </div>
         <div className=" bg-black w-full p-10  h-full flex flex-col justify-center">
@@ -141,26 +140,28 @@ const DetailPage = ({ cart, setCart }) => {
               {isInCart ? "Remove from cart" : "Add to cart"}
             </button>
 
-            <button className="flex items-center justify-center py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-              <svg
-                className="w-5 h-5 -ms-2 me-2"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"
-                />
-              </svg>
-              Buy Now...
-            </button>
+            <Link to="/buy" state={{ product }}>
+              <button className="flex items-center justify-center py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                <svg
+                  className="w-5 h-5 -ms-2 me-2"
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"
+                  />
+                </svg>
+                Buy Now...
+              </button>
+            </Link>
           </div>
 
           <hr className="border-gray-200 dark:border-gray-800" />
