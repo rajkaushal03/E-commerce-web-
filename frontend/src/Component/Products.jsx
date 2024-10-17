@@ -19,7 +19,7 @@ const Products = ({ products, setCart, cart, select,theme }) => {
       }`}
       >
         {filteredProducts.map((product) => {
-          const isInCart = cart.some((item) => item.productId == product.id);
+          const isInCart = cart.some((item) => item.id == product.id);
           // console.log("is in cart" , isInCart)
           return (
             <div

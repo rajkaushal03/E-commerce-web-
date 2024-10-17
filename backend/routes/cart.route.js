@@ -8,7 +8,7 @@ const router = express.Router();
 router.post("/add-to-cart",
    async (req, res) => {
   const {
-    productId,
+    id,
     userId,
     title,
     price,
@@ -25,13 +25,13 @@ router.post("/add-to-cart",
   try {
     const user = await User.findById(userId);
     const isProductInCart = user.cart.some(
-      (item) => item.productId == productId
+      (item) => item.id == id
     );
 
     if (!isProductInCart) {
       // Push full product details to the user's cart
       user.cart.push({
-        productId,
+        id,
         title,
         price,
         description,
@@ -50,7 +50,7 @@ router.post("/add-to-cart",
 
 // Route to remove a product from the cart
 router.post("/remove-from-cart", async (req, res) => {
-    const { productId, userId } = req.body;
+    const { id, userId } = req.body;
   
     if (!userId) {
       return res.status(401).json({ message: "User not authenticated." });
@@ -67,7 +67,7 @@ router.post("/remove-from-cart", async (req, res) => {
   
       // Remove the product from the user's cart
       user.cart = user.cart.filter(
-        (item) => item.productId.toString() !== productId.toString()
+        (item) => item.id.toString() !== id.toString()
       );
   
       // Save the updated user to the database
@@ -98,7 +98,7 @@ const fetchcart = async (req, res) => {
 
 // Route to update product quantity in the cart
 router.post("/quantity", async (req, res) => {
-  const { productId, userId, quantityChange } = req.body;
+  const { id, userId, quantityChange } = req.body;
 
   if (!userId) {
     return res.status(401).json({ message: "User not authenticated." });
@@ -112,7 +112,7 @@ router.post("/quantity", async (req, res) => {
     }
 
     // Find the product in the user's cart
-    const cartItem = user.cart.find((item) => item.productId === productId);
+    const cartItem = user.cart.find((item) => item.id === id);
     
     if (!cartItem) {
       return res.status(404).json({ message: "Product not found in cart." });

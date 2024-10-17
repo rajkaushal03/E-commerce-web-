@@ -1,7 +1,7 @@
 // In function.js
 
 export const handleAddToCart = async (product, setCart, cart, authUser) => {
-  const isProductInCart = cart.some((item) => item.productId == product.id);
+  const isProductInCart = cart.some((item) => item.id == product.id);
   if (!isProductInCart && authUser) {
     // Add product to local cart
     // setCart((prevCart) => [...prevCart, product]);
@@ -14,9 +14,9 @@ export const handleAddToCart = async (product, setCart, cart, authUser) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          productId: product.id,
-          userId: authUser._id,
           id: product.id,
+          userId: authUser._id,
+          cartid: product.id,
           title: product.title,
           price: product.price,
           description: product.description,
@@ -56,7 +56,7 @@ export const handleRemoveFromCart = async (productId, cart, setCart, authUser) =
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          productId: productId, // Correctly passing productId
+          id: productId, // Correctly passing productId
           userId: authUser._id, // Ensure userId is passed with the request
         }),
       });
@@ -90,7 +90,7 @@ export const updateCartQuantity = async (productId, userId, change, setCart) => 
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        productId: productId,
+        id: productId,
         userId: userId,
         quantityChange: change, // +1 or -1 based on button clicked
       }),

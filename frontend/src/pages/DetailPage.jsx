@@ -7,8 +7,12 @@ const DetailPage = ({ cart, setCart }) => {
   const { authUser } = useAuthContext();
 
   const location = useLocation();
-  const { product } = location.state || {};
-  const isInCart = cart.some((item) => item.productId == product.productId);
+  let { product, cartItem } = location.state || {};
+  if(!product)
+  {
+    product = cartItem
+  }
+  const isInCart = cart.some((item) => item.id == product.id);
   return (
     <div className="w-screen flex   h-screen">
       <div className="flex   h-full items-center">

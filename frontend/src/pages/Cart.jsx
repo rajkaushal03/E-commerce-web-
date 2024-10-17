@@ -45,12 +45,13 @@ const Cart = ({ cart, total, setCart, theme, setTheme }) => {
           </svg>
         </label>
       </div>
+
       <div className="flex flex-wrap items-center justify-center w-full gap-8 py-8">
         {cart.map((cartItem) => {
           return (
             <div
               className="w-1/5 shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] cursor-pointer rounded-3xl flex flex-col gap-6"
-              key={cartItem.productId}
+              key={cartItem.id}
             >
               {/* image */}
               <Link to="/detail" state={{ cartItem }}>
@@ -75,12 +76,7 @@ const Cart = ({ cart, total, setCart, theme, setTheme }) => {
                   <div className="flex items-center justify-between w-1/4 border-2 p-2">
                     <button
                       onClick={() =>
-                        handleQuantityChange(
-                          cartItem.productId,
-                          authUser,
-                          setCart,
-                          -1
-                        )
+                        handleQuantityChange(cartItem.id, authUser, setCart, -1)
                       }
                     >
                       -
@@ -90,12 +86,7 @@ const Cart = ({ cart, total, setCart, theme, setTheme }) => {
 
                     <button
                       onClick={() =>
-                        handleQuantityChange(
-                          cartItem.productId,
-                          authUser,
-                          setCart,
-                          1
-                        )
+                        handleQuantityChange(cartItem.id, authUser, setCart, 1)
                       }
                     >
                       +
@@ -104,7 +95,7 @@ const Cart = ({ cart, total, setCart, theme, setTheme }) => {
                   <div
                     onClick={() => {
                       handleRemoveFromCart(
-                        cartItem.productId,
+                        cartItem.id,
                         cart,
                         setCart,
                         authUser
