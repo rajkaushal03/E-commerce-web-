@@ -2,23 +2,33 @@ import { handleQuantityChange, handleRemoveFromCart } from "../utils/function";
 import { BsCart4 } from "react-icons/bs";
 import { useAuthContext } from "../context/AuthContext";
 import { toggleTheme } from "../lib/function";
+import { Link } from "react-router-dom";
 
-const Cart = ({ cart, total, setCart ,theme , setTheme}) => {
+const Cart = ({ cart, total, setCart, theme, setTheme }) => {
   const { authUser } = useAuthContext();
 
   return (
-    <div className="flex flex-col w-full p-10">
-      <div className="text-3xl p-3 font-bold flex justify-between">
-        <span className="flex">
-          <BsCart4 />
+    <div
+      className={`flex flex-col w-full p-10 gap-8 ${
+        theme === "dark" ? "text-white" : ""
+      }`}
+    >
+      <div className="text-3xl p-3 font-bold flex justify-between ">
+        <span className="flex gap-2">
           Cart item...
+          <BsCart4 />
         </span>
         <label className="swap swap-rotate">
-          <input type="checkbox" className="theme-controller" checked={theme === "dark"} onChange={()=>toggleTheme(setTheme)} />
+          <input
+            type="checkbox"
+            className="theme-controller"
+            checked={theme === "dark"}
+            onChange={() => toggleTheme(setTheme)}
+          />
 
           {/* Sun icon */}
           <svg
-            className="swap-on h-8 w-8 fill-current"
+            className="swap-on h-6 w-6 fill-current"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
           >
@@ -27,7 +37,7 @@ const Cart = ({ cart, total, setCart ,theme , setTheme}) => {
 
           {/* Moon icon */}
           <svg
-            className="swap-off h-8 w-8 fill-current"
+            className="swap-off h-6 w-6 fill-current"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
           >
@@ -35,7 +45,7 @@ const Cart = ({ cart, total, setCart ,theme , setTheme}) => {
           </svg>
         </label>
       </div>
-      <div className="flex flex-wrap w-full gap-8 py-8">
+      <div className="flex flex-wrap items-center justify-center w-full gap-8 py-8">
         {cart.map((cartItem) => {
           return (
             <div
@@ -43,17 +53,19 @@ const Cart = ({ cart, total, setCart ,theme , setTheme}) => {
               key={cartItem.productId}
             >
               {/* image */}
-              <div className="bg-white rounded-t-3xl px-2">
-                <img
-                  className="w-full h-60 p-3 relative hover:scale-110 transition-transform duration-1000 ease-in-out object-scale-down"
-                  src={cartItem.image}
-                  alt={cartItem.title}
-                />
-              </div>
+              <Link to="/detail" state={{ cartItem }}>
+                <div className="bg-white rounded-t-3xl px-2">
+                  <img
+                    className="w-full h-60 p-3 relative hover:scale-110 transition-transform duration-1000 ease-in-out object-scale-down"
+                    src={cartItem.image}
+                    alt={cartItem.title}
+                  />
+                </div>
+              </Link>
 
               <div className="flex flex-col justify-end h-full p-3 gap-3">
                 {/* product title */}
-                <h5 className="text-sm text-accent font-semibold tracking-tight h-1/2 text-wrap text-center">
+                <h5 className="text-sm  font-semibold tracking-tight h-1/2 text-wrap text-center ">
                   {cartItem.title}
                 </h5>
 
@@ -109,7 +121,7 @@ const Cart = ({ cart, total, setCart ,theme , setTheme}) => {
           );
         })}
       </div>
-      <div className="flex text-lg w-full items-center justify-end gap-5 font-semibold">
+      <div className="flex text-lg w-full items-center justify-center gap-5 font-semibold">
         <h1>Total Price:</h1>
         <h1 className="text-green-600">${total}</h1>
       </div>

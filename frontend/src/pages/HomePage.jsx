@@ -12,10 +12,11 @@ const HomePage = ({ cart, setCart, total, setTotal, products, theme , setTheme }
       <NavBar cart={cart} total={total} setTotal={setTotal} theme={theme} setTheme={setTheme}  />
       <div className="flex ">
         <>
-          <SideBar products={products} setSelect={setSelect} select={select} />
+          <SideBar products={products} setSelect={setSelect} select={select} theme={theme}/>
           <Products
             products={products}
             setCart={setCart}
+            theme={theme}
             cart={cart}
             select={select}
           />

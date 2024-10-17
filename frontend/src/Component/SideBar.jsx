@@ -1,6 +1,6 @@
 import { BiCategory } from "react-icons/bi";
 
-const SideBar = ({ products, select, setSelect }) => {
+const SideBar = ({ products, select, setSelect, theme }) => {
   // Group the products by category and add "All" category
   const Categories = products.reduce((acc, product) => {
     const { category } = product;
@@ -20,7 +20,11 @@ const SideBar = ({ products, select, setSelect }) => {
 
   // console.log(Categories);
   return (
-    <div className=" text-sm flex flex-col  p-5  w-[18%] sticky top-0 left-0 justify-start h-screen gap-8 py-8  border-r-2 ">
+    <div
+      className={` text-sm flex flex-col  p-5  w-[18%] sticky top-0 left-0 justify-start h-screen gap-8 py-8  ${
+        theme === "dark" ? "text-white" : ""
+      }`}
+    >
       {/* Display "All" category */}
 
       <div className="flex  items-center  gap-2 p-2 font-bold   text-2xl">

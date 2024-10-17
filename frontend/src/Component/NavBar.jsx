@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
 import { toggleTheme } from "../lib/function";
 
-const NavBar = ({ cart, total ,theme , setTheme }) => {
+const NavBar = ({ cart, total, theme, setTheme }) => {
   const { authUser, setAuthUser } = useAuthContext();
 
   const handleLogout = async () => {
@@ -16,7 +16,11 @@ const NavBar = ({ cart, total ,theme , setTheme }) => {
     }
   };
   return (
-    <div className="navbar bg-base-100  border-b-2">
+    <div
+      className={`navbar bg-base-100  border-b-2 ${
+        theme === "dark" ? "text-white" : ""
+      }`}
+    >
       <div className="flex-1">
         <a className="btn btn-ghost text-xl">Amazon</a>
       </div>
@@ -88,7 +92,8 @@ const NavBar = ({ cart, total ,theme , setTheme }) => {
                 Theme
                 <input
                   type="checkbox"
-                  checked={theme === "dark"} onChange={()=>toggleTheme(setTheme)}
+                  checked={theme === "dark"}
+                  onChange={() => toggleTheme(setTheme)}
                   className="toggle theme-controller col-span-2 col-start-1 row-start-1 border-sky-400 bg-amber-300 [--tglbg:theme(colors.sky.500)] checked:border-blue-800 checked:bg-blue-300 checked:[--tglbg:theme(colors.blue.900)]"
                   
                 />

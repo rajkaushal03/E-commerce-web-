@@ -1,10 +1,10 @@
 import { handleAddToCart, handleRemoveFromCart } from "../utils/function";
 import { useAuthContext } from "../context/AuthContext";
+import { Link } from "react-router-dom";
 
-const Products = ({ products, setCart, cart, select }) => {
-
-  const {authUser} = useAuthContext();
-//  console.log("product cart" , cart);
+const Products = ({ products, setCart, cart, select,theme }) => {
+  const { authUser } = useAuthContext();
+  //  console.log("product cart" , cart);
 
   const filteredProducts =
     select === "All"
@@ -13,7 +13,11 @@ const Products = ({ products, setCart, cart, select }) => {
 
   return (
     <>
-      <div className="flex flex-wrap w-full  justify-center  h-full  gap-8 py-8 px-6">
+      <div
+        className={`flex flex-wrap w-full  justify-center border-l-2 h-full  gap-8 py-8 px-6 ${
+        theme === "dark" ? "text-white" : ""
+      }`}
+      >
         {filteredProducts.map((product) => {
           const isInCart = cart.some((item) => item.productId == product.id);
           // console.log("is in cart" , isInCart)
@@ -23,17 +27,19 @@ const Products = ({ products, setCart, cart, select }) => {
               key={product.id}
             >
               {/* image */}
-              <div className="bg-white rounded-t-3xl px-2">
-                <img
-                  className="w-full h-60 p-3 relative hover:scale-110 transition-transform duration-1000 ease-in-out object-scale-down"
-                  src={product.image}
-                  alt={product.title}
-                />
-              </div>
+              <Link to="/detail" state={{ product }}>
+                <div className="bg-white rounded-t-3xl px-2">
+                  <img
+                    className="w-full h-60 p-3 relative hover:scale-110 transition-transform duration-1000 ease-in-out object-scale-down"
+                    src={product.image}
+                    alt={product.title}
+                  />
+                </div>
+              </Link>
 
               <div className="flex flex-col justify-end h-full  p-3 gap-3">
                 {/* product title */}
-                <h5 className="text-sm font-semibold tracking-tight h-1/2  text-wrap  text-center">
+                <h5 className="text-sm font-semibold tracking-tight h-1/2 text-wrap text-center ">
                   {product.title}
                 </h5>
 
@@ -42,9 +48,14 @@ const Products = ({ products, setCart, cart, select }) => {
                   className=" flex justify-between h-1/2 items-center px-4"
                   onClick={() => {
                     if (isInCart) {
-                      return handleRemoveFromCart(product.id, cart, setCart, authUser);
+                      return handleRemoveFromCart(
+                        product.id,
+                        cart,
+                        setCart,
+                        authUser
+                      );
                     }
-                    return handleAddToCart(product, setCart, cart,authUser);
+                    return handleAddToCart(product, setCart, cart, authUser);
                   }}
                 >
                   <span className="text-md font-bold ">${product.price}</span>
