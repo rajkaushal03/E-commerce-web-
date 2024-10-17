@@ -98,12 +98,11 @@ const DetailPage = ({ cart, setCart }) => {
               <p className="text-sm font-medium leading-none text-gray-500 dark:text-gray-400">
                 ({product.rating.rate})
               </p>
-              <a
-                href="#"
+              <span
                 className="text-sm font-medium leading-none text-gray-900 underline hover:no-underline dark:text-white"
               >
                 {product.rating.count} Reviews
-              </a>
+              </span>
             </div>
           </div>
 
