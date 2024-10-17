@@ -30,10 +30,12 @@ const DetailPage = ({ cart, setCart }) => {
           <h1 className="text-5xl font-semibold text-gray-900  dark:text-white p-2">
             {product.title}
           </h1>
-          <div className="flex justify-between items-center p-2">
+          <div className="flex  gap-5 items-center p-4">
             <p className="text-2xl font-extrabold text-gray-900 sm:text-3xl dark:text-white">
               ${product.price}
             </p>
+
+            {/* rating and reviews */}
 
             <div className="flex items-center gap-4 mt-2 ">
               <div className="flex items-center gap-1">
@@ -104,6 +106,8 @@ const DetailPage = ({ cart, setCart }) => {
               </a>
             </div>
           </div>
+
+          {/* add to cart and buy now button */}
 
           <div className="flex  py-5 px-2 gap-8 justify-end items-center ">
             <button
