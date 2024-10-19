@@ -2,10 +2,16 @@ import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
   {
+    username: {
+      type: String,
+      unique: true,
+    },
     googleId: {
       type: String,
-      required: true,
       unique: true, // Google ID should be unique for each user
+    },
+    profileUrl: {
+      type: String,
     },
     name: {
       type: String,
@@ -13,7 +19,6 @@ const userSchema = new mongoose.Schema(
     },
     email: {
       type: String,
-      required: true,
       unique: true, // Email must also be unique
     },
     picture: {
@@ -26,7 +31,7 @@ const userSchema = new mongoose.Schema(
           id: Number,
           title: String,
           price: Number,
-          quantity:{ type: Number, default: 1 },
+          quantity: { type: Number, default: 1 },
           description: String,
           category: String,
           image: String,

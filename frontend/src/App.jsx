@@ -41,7 +41,7 @@ const App = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cart]);
 
-  // console.log("Authenticated user:", authUser);
+  console.log("Authenticated user:", authUser);
 
   return (
     <>

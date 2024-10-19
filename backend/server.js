@@ -8,6 +8,7 @@ import connectMongoDB from "./db/connectMongoDB.js";
 import authRoutes from "./routes/auth.route.js";
 import cartRoutes from "./routes/cart.route.js"; // Import cart routes
 import "./passport/google.auth.js";
+import "./passport/github.auth.js"
 
 dotenv.config();
 
