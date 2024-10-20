@@ -46,7 +46,7 @@ const Cart = ({ cart, total, setCart, theme, setTheme }) => {
         </label>
       </div>
       <div className="flex w-full ">
-        <div className=" w-[80%] gap-8 p-8 flex flex-col">
+        <div className=" w-[80%] gap-8 px-8 flex flex-col ">
           {cart.map((cartItem) => {
             return (
               <div
