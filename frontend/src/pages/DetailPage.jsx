@@ -2,6 +2,10 @@
 import { Link, useLocation } from "react-router-dom";
 import { handleAddToCart, handleRemoveFromCart } from "../utils/function";
 import { useAuthContext } from "../context/AuthContext";
+import {
+  MdOutlineAddShoppingCart,
+  MdOutlineShoppingCartCheckout,
+} from "react-icons/md";
 
 const DetailPage = ({ cart, setCart }) => {
   const { authUser } = useAuthContext();
@@ -98,9 +102,7 @@ const DetailPage = ({ cart, setCart }) => {
               <p className="text-sm font-medium leading-none text-gray-500 dark:text-gray-400">
                 ({product.rating.rate})
               </p>
-              <span
-                className="text-sm font-medium leading-none text-gray-900 underline hover:no-underline dark:text-white"
-              >
+              <span className="text-sm font-medium leading-none text-gray-900 underline hover:no-underline dark:text-white">
                 {product.rating.count} Reviews
               </span>
             </div>
@@ -110,7 +112,7 @@ const DetailPage = ({ cart, setCart }) => {
 
           <div className="flex  py-5 px-2 gap-8 justify-end items-center ">
             <button
-              className="flex items-center justify-center py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+              className="flex items-center justify-center py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 gap-2"
               onClick={() => {
                 if (isInCart) {
                   return handleRemoveFromCart(
@@ -123,46 +125,14 @@ const DetailPage = ({ cart, setCart }) => {
                 return handleAddToCart(product, setCart, cart, authUser);
               }}
             >
-              <svg
-                className="w-5 h-5 -ms-2 me-2"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                fill="none"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z"
-                />
-              </svg>
+              <MdOutlineAddShoppingCart className="text-xl" />
               {isInCart ? "Remove from cart" : "Add to cart"}
             </button>
 
-            <Link to="/buy" state={{ product }}>
-              <button className="flex items-center justify-center py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-                <svg
-                  className="w-5 h-5 -ms-2 me-2"
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M4 4h1.5L8 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm.75-3H7.5M11 7H6.312M17 4v6m-3-3h6"
-                  />
-                </svg>
-                Buy Now...
+            <Link to="/cart">
+              <button className="gap-2 flex items-center justify-center py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                <MdOutlineShoppingCartCheckout className="text-xl" />
+                Check Out...
               </button>
             </Link>
           </div>

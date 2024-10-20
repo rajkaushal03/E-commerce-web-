@@ -8,7 +8,6 @@ import Cart from "./pages/Cart";
 import { useEffect, useState } from "react";
 import { fetchCartProducts, fetchProducts } from "./utils/function";
 import DetailPage from "./pages/DetailPage";
-import BuyPage from "./pages/BuyPage";
 
 const App = () => {
   const { authUser } = useAuthContext();
@@ -41,7 +40,7 @@ const App = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cart]);
 
-  console.log("Authenticated user:", authUser);
+  // console.log("Authenticated user:", authUser);
 
   return (
     <>
@@ -49,7 +48,6 @@ const App = () => {
         <Route path="/" element={ !authUser ? ( <SignupPage /> ) : ( <HomePage cart={cart} setCart={setCart}  total={total} setTotal={setTotal} products={products} setTheme={setTheme} theme={theme} /> ) } />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/detail" element={<DetailPage cart={cart} setCart={setCart}/>} />
-        <Route path="/buy" element={<BuyPage />}/>
         <Route path="/profile" element={!authUser ? <SignupPage /> : <Profile />}/>
         <Route path="/cart" element={ !authUser ? ( <SignupPage /> ) : ( <Cart cart={cart} setCart={setCart} total={total} theme={theme} setTheme={setTheme} /> )} / >
       </Routes>

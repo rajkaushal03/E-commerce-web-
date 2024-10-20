@@ -19,11 +19,16 @@ const userSchema = new mongoose.Schema(
     },
     email: {
       type: String,
+      default: "",
       unique: true, // Email must also be unique
     },
     picture: {
       type: String,
       required: true, // Store profile picture URL
+    },
+    account : {
+      type:String,
+      required:true,
     },
     cart: {
       type: [

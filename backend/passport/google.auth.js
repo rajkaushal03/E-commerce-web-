@@ -28,6 +28,7 @@ passport.use(
     async function (request, accessToken, refreshToken, profile, done) {
       // Check if the user already exists
       const user = await User.findOne({ email: profile.emails[0].value });
+      // console.log("GitHub Profile:", profile);
 
       if (!user) {
         // If not, create a new user
@@ -36,6 +37,7 @@ passport.use(
           name: profile.displayName,
           email: profile.emails[0].value, // Use the first email
           picture: profile.photos[0].value, // Use the profile picture
+          account:profile.provider,
         });
         await newUser.save();
         done(null, newUser);

@@ -1,4 +1,4 @@
-import {  FaGoogle, FaUnlockAlt } from "react-icons/fa";
+import {  FaGithub, FaGoogle, FaUnlockAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { handleLoginWithGithub, handleLoginWithGoogle } from "../lib/function";
 
@@ -18,7 +18,7 @@ const SignupPage = () => {
             onClick={handleLoginWithGithub}
 
           >
-            <FaGoogle className="w-5 h-5" />
+            <FaGithub className="w-5 h-5" />
             Sign up with Github
           </button>
           <button

@@ -1,7 +1,7 @@
 import { useAuthContext } from "../context/AuthContext";
 
 const Profile = () => {
-  const { authUser} = useAuthContext();
+  const { authUser } = useAuthContext();
 
   return (
     <div className=" flex justify-center items-center w-screen h-screen bg-gray-600">
@@ -23,13 +23,21 @@ const Profile = () => {
           </div>
           <div className=" ">
             <div className="text-center px-14">
-              <h2 className="text-gray-800 text-3xl font-bold">{authUser?.name}</h2>
+              <h2 className="text-gray-800 text-3xl font-bold">
+                {authUser?.name}
+              </h2>
               <a
                 className="text-gray-400 mt-2 hover:text-blue-500"
-                href="https://www.instagram.com/immohitdhiman/"
+                href={
+                  authUser?.email?.length === 0
+                    ? authUser?.profileUrl
+                    : authUser?.email
+                }
                 target="BLANK()"
               >
-                {authUser?.email}
+                {authUser?.email?.length === 0
+                  ? `Github username: ${authUser?.username}`
+                  : `Email: ${authUser?.email}`}
               </a>
               <p className="mt-2 text-gray-500 text-sm">
                 Lorem Ipsum is simply dummy text of the printing and typesetting
