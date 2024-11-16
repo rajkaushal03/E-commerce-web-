@@ -131,3 +131,9 @@ export const fetchCartProducts = async (setCart) => {
     console.log(error.message);
   }
 };
+
+
+
+export const handleBuy = () =>{
+
+}
