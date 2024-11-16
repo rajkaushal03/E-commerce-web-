@@ -1,9 +1,13 @@
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
-import { toggleTheme } from "../lib/function";
+import { useThemeContext } from "../context/ThemeContext";
+import { useProductContext } from "../context/ProductContext";
 
-const NavBar = ({ cart, total, theme, setTheme }) => {
+const NavBar = () => {
   const { authUser, setAuthUser } = useAuthContext();
+  const {theme , toggleTheme} = useThemeContext();
+  const {cart, total} = useProductContext();
+ 
 
   const handleLogout = async () => {
     try {
@@ -93,7 +97,7 @@ const NavBar = ({ cart, total, theme, setTheme }) => {
                 <input
                   type="checkbox"
                   checked={theme === "dark"}
-                  onChange={() => toggleTheme(setTheme)}
+                  onChange={toggleTheme}
                   className="toggle theme-controller col-span-2 col-start-1 row-start-1 border-sky-400 bg-amber-300 [--tglbg:theme(colors.sky.500)] checked:border-blue-800 checked:bg-blue-300 checked:[--tglbg:theme(colors.blue.900)]"
                   
                 />

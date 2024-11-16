@@ -6,10 +6,11 @@ import {
   MdOutlineAddShoppingCart,
   MdOutlineShoppingCartCheckout,
 } from "react-icons/md";
+import { useProductContext } from "../context/ProductContext";
 
-const DetailPage = ({ cart, setCart }) => {
+const DetailPage = () => {
   const { authUser } = useAuthContext();
-
+  const { cart, setCart } = useProductContext();
   const location = useLocation();
   let { product, cartItem } = location.state || {};
   if (!product) {

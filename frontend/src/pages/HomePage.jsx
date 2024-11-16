@@ -4,22 +4,15 @@ import NavBar from "../Component/NavBar";
 import { ToastContainer } from "react-toastify";
 import SideBar from "../Component/SideBar";
 
-const HomePage = ({ cart, setCart, total, setTotal, products, theme , setTheme }) => {
+const HomePage = () => {
   const [select, setSelect] = useState("All");
-
   return (
     <>
-      <NavBar cart={cart} total={total} setTotal={setTotal} theme={theme} setTheme={setTheme}  />
+      <NavBar />
       <div className="flex ">
         <>
-          <SideBar products={products} setSelect={setSelect} select={select} theme={theme}/>
-          <Products
-            products={products}
-            setCart={setCart}
-            theme={theme}
-            cart={cart}
-            select={select}
-          />
+          <SideBar setSelect={setSelect} select={select} />
+          <Products select={select} />
         </>
       </div>
       <ToastContainer />

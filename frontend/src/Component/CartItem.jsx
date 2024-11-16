@@ -1,9 +1,11 @@
 import { useAuthContext } from "../context/AuthContext";
 import { Link } from "react-router-dom";
 import { handleQuantityChange, handleRemoveFromCart } from "../utils/function";
+import { useProductContext } from "../context/ProductContext";
 
-const CartItem = ({ cart, setCart }) => {
+const CartItem = () => {
   const { authUser } = useAuthContext();
+  const { cart, setCart } = useProductContext();
 
   const handleDecrement = (itemId) =>
     handleQuantityChange(itemId, authUser, setCart, -1);
@@ -18,7 +20,7 @@ const CartItem = ({ cart, setCart }) => {
     <div className="w-[80%] gap-8 px-8 flex flex-col">
       {cart.map((cartItem) => (
         <div
-          className="w-full h-32 flex justify-between p-2 shadow-md"
+          className="w-full h-32 flex justify-between p-2 shadow-xl border-2 border-black rounded-lg"
           key={cartItem.id}
         >
           {/* Product Image */}

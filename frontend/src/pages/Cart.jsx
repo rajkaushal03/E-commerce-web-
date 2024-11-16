@@ -1,8 +1,14 @@
 import { BsCart4 } from "react-icons/bs";
-import { toggleTheme } from "../lib/function";
 import CartItem from "../Component/CartItem";
+import { Link } from "react-router-dom";
+import { GoHome } from "react-icons/go";
+import { useThemeContext } from "../context/ThemeContext";
+import { useProductContext } from "../context/ProductContext";
 
-const Cart = ({ cart, total, setCart, theme, setTheme }) => {
+const Cart = () => {
+  const { theme, toggleTheme } = useThemeContext();
+  const { cart, setCart, total } = useProductContext();
+
   return (
     <div
       className={`flex flex-col w-full p-10 gap-8 ${
@@ -12,14 +18,14 @@ const Cart = ({ cart, total, setCart, theme, setTheme }) => {
       {/* Header */}
       <div className="text-3xl p-3 font-bold flex justify-between">
         <span className="flex gap-2">
-          Shopping Cart <BsCart4 />
+          Shopping Cart... <BsCart4 />
         </span>
         <label className="swap swap-rotate">
           <input
             type="checkbox"
             className="theme-controller"
             checked={theme === "dark"}
-            onChange={() => toggleTheme(setTheme)}
+            onChange={toggleTheme}
           />
           {/* Theme icons */}
           <svg
@@ -41,18 +47,39 @@ const Cart = ({ cart, total, setCart, theme, setTheme }) => {
 
       {/* Content */}
       {cart.length === 0 ? (
-        <div className="text-center text-xl font-semibold">Your cart is empty!</div>
+        <div className=" text-3xl font-semibold flex  flex-col items-center justify-center gap-5">
+          <img src="public/empty-cart.png" />
+          Your cart is empty!
+          <Link to="/">
+            <button className=" bg-blue-500 p-2 rounded-lg flex   items-center justify-center text-base gap-2 text-white">
+              <GoHome />
+              Go Home
+            </button>
+          </Link>
+        </div>
       ) : (
         <div className="flex w-full">
+          {/* cart items */}
           <CartItem cart={cart} setCart={setCart} />
+
+          {/* cart payment gateway */}
           <div className="flex flex-col text-lg w-[20%] items-center gap-5 font-semibold rounded-lg p-5 h-full shadow-md">
             <h1 className="w-full text-center flex gap-2">
-              Subtotal (${cart.length} items):{" "}
+              Subtotal ({cart.length} items):{" "}
               <span className="text-green-600">${total}</span>
             </h1>
-            <button className="w-full bg-blue-500 p-2 rounded-lg">
-              Proceed to Buy
-            </button>
+            <Link to="/buy" className="w-full">
+              <button className="w-full bg-blue-500 p-2 rounded-lg text-white">
+                Proceed to Buy
+              </button>
+            </Link>
+
+            <Link to="/" className="w-full">
+              <button className="w-full bg-blue-500 p-2 rounded-lg flex gap-2  items-center justify-center text-base text-white">
+                <GoHome />
+                Go Home
+              </button>
+            </Link>
           </div>
         </div>
       )}

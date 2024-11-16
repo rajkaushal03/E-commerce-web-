@@ -1,6 +1,10 @@
 import { BiCategory } from "react-icons/bi";
+import { useThemeContext } from "../context/ThemeContext";
+import { useProductContext } from "../context/ProductContext";
 
-const SideBar = ({ products, select, setSelect, theme }) => {
+const SideBar = ({ select, setSelect }) => {
+  const { products } = useProductContext();
+
   // Group the products by category and add "All" category
   const Categories = products.reduce((acc, product) => {
     const { category } = product;
@@ -17,6 +21,7 @@ const SideBar = ({ products, select, setSelect, theme }) => {
 
     return acc;
   }, {});
+  const { theme } = useThemeContext();
 
   // console.log(Categories);
   return (

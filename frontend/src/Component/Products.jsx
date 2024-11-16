@@ -1,9 +1,13 @@
 import { handleAddToCart, handleRemoveFromCart } from "../utils/function";
 import { useAuthContext } from "../context/AuthContext";
 import { Link } from "react-router-dom";
+import { useThemeContext } from "../context/ThemeContext";
+import { useProductContext } from "../context/ProductContext";
 
-const Products = ({ products, setCart, cart, select,theme }) => {
+const Products = ({  select}) => {
+  const {products, setCart, cart} = useProductContext();
   const { authUser } = useAuthContext();
+  const { theme}  = useThemeContext();
   //  console.log("product cart" , cart);
 
   const filteredProducts =
