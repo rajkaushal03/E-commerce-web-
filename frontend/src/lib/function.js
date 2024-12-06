@@ -9,3 +9,15 @@ export const toggleTheme = (setTheme) => {
 export const handleLoginWithGithub = () => {
   window.open("/api/auth/github", "_self");
 };
+
+
+export const handleLogout = async (setAuthUser) => {
+  try {
+    const res = await fetch("/api/auth/logout", { credentials: "include" });
+    const data = await res.json();
+    console.log(data);
+    setAuthUser(null);
+  } catch (error) {
+    alert(error.message);
+  }
+};

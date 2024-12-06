@@ -9,6 +9,7 @@ import authRoutes from "./routes/auth.route.js";
 import cartRoutes from "./routes/cart.route.js"; // Import cart routes
 import "./passport/google.auth.js";
 import "./passport/github.auth.js"
+// import { fetchProductsAndSave } from "./controllers/product.controller.js";
 
 dotenv.config();
 
@@ -42,4 +43,5 @@ app.get("*", (req, res) => {
 app.listen(PORT, () => {
   console.log("Server is running at port", PORT);
   connectMongoDB();
+  // fetchProductsAndSave();
 });

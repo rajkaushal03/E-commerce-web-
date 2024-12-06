@@ -2,23 +2,13 @@ import { Link } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
 import { useThemeContext } from "../context/ThemeContext";
 import { useProductContext } from "../context/ProductContext";
+import { handleLogout } from "../lib/function";
 
 const NavBar = () => {
   const { authUser, setAuthUser } = useAuthContext();
-  const {theme , toggleTheme} = useThemeContext();
-  const {cart, total} = useProductContext();
- 
+  const { theme, toggleTheme } = useThemeContext();
+  const { cart, total } = useProductContext();
 
-  const handleLogout = async () => {
-    try {
-      const res = await fetch("/api/auth/logout", { credentials: "include" });
-      const data = await res.json();
-      console.log(data);
-      setAuthUser(null);
-    } catch (error) {
-      alert(error.message);
-    }
-  };
   return (
     <div
       className={`navbar bg-base-100  border-b-2 ${
@@ -83,27 +73,28 @@ const NavBar = () => {
             tabIndex={0}
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
           >
-            <Link to="/profile">
-              <li>
-                <a className=" flex justify-between">
-                  Profile
-                  <span className="badge">New</span>
-                </a>
-              </li>
-            </Link>
             <li>
-              <a className=" flex justify-between">   
+              <Link className=" flex justify-between" to="/profile">
+                Profile
+                <span className="badge">New</span>
+              </Link>
+            </li>
+            <li>
+              <a className=" flex justify-between">
                 Theme
                 <input
                   type="checkbox"
                   checked={theme === "dark"}
                   onChange={toggleTheme}
                   className="toggle theme-controller col-span-2 col-start-1 row-start-1 border-sky-400 bg-amber-300 [--tglbg:theme(colors.sky.500)] checked:border-blue-800 checked:bg-blue-300 checked:[--tglbg:theme(colors.blue.900)]"
-                  
                 />
               </a>
             </li>
-            <li onClick={handleLogout}>
+            <li
+              onClick={() => {
+                handleLogout(setAuthUser);
+              }}
+            >
               <a>Logout</a>
             </li>
           </ul>

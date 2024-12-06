@@ -1,28 +1,15 @@
-// router.js
-
 import express from "express";
-import fetch from "node-fetch";
 import { ensureAuthenticated } from "../middleware/ensrueAuthenticated.js";
 
+import {
+  addProduct,
+  deleteProduct,
+  fetchProducts,
+} from "../controllers/product.controller.js";
 const router = express.Router();
 
-const fetchProducts = async (req, res) => {
-  try {
-    const response = await fetch("https://fakestoreapi.com/products");
-    if (!response.ok) {
-      const errorMessage = await response.text();
-      throw new Error(
-        `HTTP error! Status: ${response.status}, Message: ${errorMessage}`
-      );
-    }
-    const data = await response.json();
-    res.json(data);
-  } catch (error) {
-    console.error("Error fetching products:", error);
-    res.status(500).json({ error: "Failed to fetch products" });
-  }
-};
+router.get("/products", ensureAuthenticated, fetchProducts);
 
-router.get("/products", ensureAuthenticated ,fetchProducts);
-
+router.post("/add", addProduct);
+router.post("/delete", deleteProduct);
 export default router;

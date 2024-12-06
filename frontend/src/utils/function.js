@@ -34,7 +34,7 @@ export const handleAddToCart = async (product, setCart, cart, authUser) => {
       }
 
       const data = await response.json();
-      setCart(data.cart)
+      setCart(data.cart);
       // console.log(data); // Handle success message if needed
     } catch (error) {
       console.error("Error adding to cart:", error);
@@ -47,7 +47,12 @@ export const handleAddToCart = async (product, setCart, cart, authUser) => {
   // fetchCartProducts(setCart);
 };
 
-export const handleRemoveFromCart = async (productId, cart, setCart, authUser) => {
+export const handleRemoveFromCart = async (
+  productId,
+  cart,
+  setCart,
+  authUser
+) => {
   if (authUser) {
     try {
       const response = await fetch(`/api/cart/remove-from-cart`, {
@@ -67,7 +72,6 @@ export const handleRemoveFromCart = async (productId, cart, setCart, authUser) =
 
       const data = await response.json();
       setCart(data.cart); // Update the cart with the response from server
-
     } catch (error) {
       console.error("Error removing from cart:", error);
       // Optionally revert the local cart to the previous state if the API call fails
@@ -76,13 +80,22 @@ export const handleRemoveFromCart = async (productId, cart, setCart, authUser) =
   }
 };
 
-
-export const handleQuantityChange = async (productId,authUser, setCart,  change) => {
+export const handleQuantityChange = async (
+  productId,
+  authUser,
+  setCart,
+  change
+) => {
   // Call the function to update the quantity in the database
   await updateCartQuantity(productId, authUser._id, change, setCart);
 };
 
-export const updateCartQuantity = async (productId, userId, change, setCart) => {
+export const updateCartQuantity = async (
+  productId,
+  userId,
+  change,
+  setCart
+) => {
   try {
     const response = await fetch(`/api/cart/quantity`, {
       method: "POST",
@@ -131,9 +144,53 @@ export const fetchCartProducts = async (setCart) => {
     console.log(error.message);
   }
 };
+export const handleStorage = async (newProductData) => {
+  try {
+    const response = await fetch("/api/add", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newProductData),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error: ${response.statusText}`);
+    }
+
+    const result = await response.json();
+    console.log("Product successfully added:", result);
+  } catch (error) {
+    console.error("Error adding product:", error.message);
+  }
+};
 
 
+export const handleDelete = async (productId, setProducts) => {
+  try {
+    const response = await fetch("/api/delete", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: productId }),
+    });
 
-export const handleBuy = () =>{
+    if (!response.ok) {
+      throw new Error("Failed to delete product");
+    }
 
-}
+    // Assuming the response returns the updated list of products
+    const data = await response.json();
+
+    // Ensure that the products are updated
+    if (data.updatedProducts) {
+      setProducts(data.updatedProducts);
+    } else {
+      console.error("Error: No updated products found");
+    }
+  } catch (error) {
+    console.error("Error deleting product:", error.message);
+  }
+};
+

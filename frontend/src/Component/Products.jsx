@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 import { useThemeContext } from "../context/ThemeContext";
 import { useProductContext } from "../context/ProductContext";
 
-const Products = ({  select}) => {
-  const {products, setCart, cart} = useProductContext();
+const Products = ({ select }) => {
+  const { products, setCart, cart } = useProductContext();
   const { authUser } = useAuthContext();
-  const { theme}  = useThemeContext();
+  const { theme } = useThemeContext();
   //  console.log("product cart" , cart);
 
   const filteredProducts =
@@ -19,22 +19,22 @@ const Products = ({  select}) => {
     <>
       <div
         className={`flex flex-wrap w-full  justify-center border-l-2 h-full  gap-8 py-8 px-6 ${
-        theme === "dark" ? "text-white" : ""
-      }`}
+          theme === "dark" ? "text-white" : ""
+        }`}
       >
         {filteredProducts.map((product) => {
           const isInCart = cart.some((item) => item.id == product.id);
           // console.log("is in cart" , isInCart)
           return (
             <div
-              className="w-1/5 h-94 shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] cursor-pointer rounded-3xl  flex flex-col  gap-6"
+              className="w-1/5 h-94 border-2 border-black shadow-[0px_4px_16px_rgba(17,17,26,0.1),_0px_8px_24px_rgba(17,17,26,0.1),_0px_16px_56px_rgba(17,17,26,0.1)] cursor-pointer rounded-3xl  flex flex-col  gap-6"
               key={product.id}
             >
               {/* image */}
               <Link to="/detail" state={{ product }}>
                 <div className="bg-white rounded-t-3xl px-2">
                   <img
-                    className="w-full h-60 p-3 relative hover:scale-110 transition-transform duration-1000 ease-in-out object-scale-down"
+                    className="w-full h-64  p-3 relative hover:scale-110 transition-transform duration-1000 ease-in-out object-scale-down"
                     src={product.image}
                     alt={product.title}
                   />

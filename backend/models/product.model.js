@@ -24,7 +24,11 @@ const productSchema = new mongoose.Schema({
   },
   image: {
     type: String,
-    required: true
+    required: true, // This can store URL or base64-encoded image data
+  },
+  uploadedImage: {
+    type: String,
+    required: false, // This can store the path of the uploaded image if stored as a file
   },
   rating: {
     rate: {
@@ -37,7 +41,6 @@ const productSchema = new mongoose.Schema({
     }
   }
 });
-
 
 const Product = mongoose.model("Product", productSchema);
 export default Product;
