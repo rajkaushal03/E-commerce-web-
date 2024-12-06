@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently \"nodemon backend/server.js\" \"npm run dev --prefix frontend\""
-
+    "dev": "nodemon backend/server.js"
   },
   "type": "module",
   "keywords": [],
@@ -25,7 +24,8 @@
     "passport-google-oauth2": "^0.2.0",
     "passport-google-oauth20": "^2.0.0",
     "react-hot-toast": "^2.4.1",
-    "react-router-dom": "^6.27.0"
+    "react-router-dom": "^6.27.0",
+    "stripe": "^17.3.1"
   },
   "devDependencies": {
     "concurrently": "^9.0.1"

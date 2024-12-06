@@ -6,6 +6,7 @@ import { useAuthContext } from "./context/AuthContext";
 import Profile from "./Component/Profile";
 import Cart from "./pages/Cart";
 import DetailPage from "./pages/DetailPage";
+import BuyPage from "./pages/BuyPage";
 
 const App = () => {
   const { authUser } = useAuthContext();
@@ -24,6 +25,7 @@ const App = () => {
           element={!authUser ? <SignupPage /> : <Profile />}
         />
         <Route path="/cart" element={!authUser ? <SignupPage /> : <Cart />} />
+        <Route path="/buy" element={!authUser ? <SignupPage /> : <BuyPage />} />
       </Routes>
     </>
   );
