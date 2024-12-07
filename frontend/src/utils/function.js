@@ -144,7 +144,7 @@ export const fetchCartProducts = async (setCart) => {
     console.log(error.message);
   }
 };
-export const handleStorage = async (newProductData) => {
+export const handleStorage = async (newProductData, setProducts) => {
   try {
     const response = await fetch("/api/add", {
       method: "POST",
@@ -159,12 +159,12 @@ export const handleStorage = async (newProductData) => {
     }
 
     const result = await response.json();
-    console.log("Product successfully added:", result);
+    setProducts(result.product);
+    // console.log("Product successfully added:", result.product);
   } catch (error) {
     console.error("Error adding product:", error.message);
   }
 };
-
 
 export const handleDelete = async (productId, setProducts) => {
   try {
@@ -183,9 +183,10 @@ export const handleDelete = async (productId, setProducts) => {
     // Assuming the response returns the updated list of products
     const data = await response.json();
 
-    // Ensure that the products are updated
+    // Ensure that the products are sorted and updated
     if (data.updatedProducts) {
-      setProducts(data.updatedProducts);
+      const sortedProducts = data.updatedProducts.sort((a, b) => a.id - b.id); // Sort by product ID
+      setProducts(sortedProducts);
     } else {
       console.error("Error: No updated products found");
     }
@@ -193,4 +194,3 @@ export const handleDelete = async (productId, setProducts) => {
     console.error("Error deleting product:", error.message);
   }
 };
-

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useProductContext } from "../context/ProductContext";
+import { RiAdminLine } from "react-icons/ri";
 import { handleDelete } from "../utils/function";
 import AdminSideBar from "../Component/AdminSideBar";
 import AddProductForm from "../Component/AddProductForm";
@@ -21,7 +22,8 @@ const AdminPage = () => {
       const filteredProducts = products.filter(
         (p) =>
           p.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          p.category.toLowerCase().includes(searchTerm.toLowerCase())
+          p.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          p.id.toString().includes(searchTerm.toLowerCase())
       );
       setNewProduct(filteredProducts);
     }
@@ -39,7 +41,10 @@ const AdminPage = () => {
   return (
     <div className="w-full h-full">
       <div className="flex justify-between items-center border-b-4 py-2 px-4">
-        <h1 className="text-4xl font-bold py-4">Admin Dashboard...</h1>
+        <h1 className="text-4xl  py-4 flex gap-2">
+          <RiAdminLine />
+          <strong>Admin Dashboard.....</strong>
+        </h1>
         <div className="flex gap-8">
           <input
             type="text"
@@ -63,7 +68,7 @@ const AdminPage = () => {
                 className="btn btn-outline btn-sm"
                 onClick={() => handleSort("newest")}
               >
-                Newest
+                Recently added
               </button>
 
               <button

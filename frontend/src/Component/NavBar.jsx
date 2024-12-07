@@ -1,17 +1,18 @@
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
 import { useThemeContext } from "../context/ThemeContext";
+import { RiAdminLine } from "react-icons/ri";
 import { useProductContext } from "../context/ProductContext";
 import { handleLogout } from "../lib/function";
 
 const NavBar = () => {
-  const { authUser, setAuthUser } = useAuthContext();
+  const { authUser, setAuthUser, AdminAccess } = useAuthContext();
   const { theme, toggleTheme } = useThemeContext();
   const { cart, total } = useProductContext();
-
+  console.log(AdminAccess);
   return (
     <div
-      className={`navbar bg-base-100  border-b-2 ${
+      className={`navbar bg-base-100  border-b-4 ${
         theme === "dark" ? "text-white" : ""
       }`}
     >
@@ -79,6 +80,18 @@ const NavBar = () => {
                 <span className="badge">New</span>
               </Link>
             </li>
+            {AdminAccess ? (
+              <li>
+                <Link className=" flex justify-between" to="/admin">
+                  Admin
+                  <span className="badge">
+                    <RiAdminLine />
+                  </span>
+                </Link>
+              </li>
+            ) : (
+              <></>
+            )}
             <li>
               <a className=" flex justify-between">
                 Theme

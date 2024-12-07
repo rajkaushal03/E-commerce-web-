@@ -18,7 +18,7 @@ const Products = ({ select }) => {
   return (
     <>
       <div
-        className={`flex flex-wrap w-full  justify-center border-l-2 h-full  gap-8 py-8 px-6 ${
+        className={`flex flex-wrap w-full  justify-center border-l-4 h-full  gap-8 py-8 px-6 ${
           theme === "dark" ? "text-white" : ""
         }`}
       >

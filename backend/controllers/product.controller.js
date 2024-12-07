@@ -89,9 +89,11 @@ export const addProduct = async (req, res) => {
     // Save to MongoDB
     await newProduct.save();
 
+    const updatedProducts = await Product.find()
+
     res
       .status(201)
-      .json({ message: "Product added successfully!", product: newProduct });
+      .json({ message: "Product added successfully!", product: updatedProducts });
   } catch (error) {
     console.error("Error adding product:", error.message);
     res.status(500).json({ error: "Internal Server Error" });

@@ -2,7 +2,7 @@ import { useProductContext } from "../context/ProductContext";
 import { handleStorage } from "../utils/function";
 
 const AddProductForm = () => {
-  const { products } = useProductContext();
+  const { products, setProducts } = useProductContext();
 
   const lastId =
     products.length > 0 ? Math.max(...products.map((p) => p.id)) : 0;
@@ -23,14 +23,14 @@ const AddProductForm = () => {
 
     // Optionally, you could add logic to update the products context or backend
     console.log("New Product Added:", newProductData);
-    handleStorage(newProductData);
+    handleStorage(newProductData, setProducts);
 
     // Reset form fields after submission
     e.target.reset();
   };
 
   return (
-    <div className="sticky top-0 right-0 h-screen px-4">
+    <div className="sticky top-0 right-0 h-screen px-4 ">
       <h1 className="text-xl font-bold py-4">New Products...</h1>
 
       {/* Product ID */}
@@ -40,10 +40,10 @@ const AddProductForm = () => {
         </div>
       </div>
 
-      <form onSubmit={handleFormSubmit} className="text-gray-700 text-sm">
+      <form onSubmit={handleFormSubmit} className=" text-sm">
         {/* Title */}
         <div className="mb-4">
-          <label className="font-bold">Title :</label>
+          <label className="font-bold ">Title :</label>
           <input
             type="text"
             id="title"
