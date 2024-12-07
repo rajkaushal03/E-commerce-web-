@@ -35,9 +35,10 @@ passport.use(
         const newUser = new User({
           googleId: profile.id,
           name: profile.displayName,
+          username: profile.displayName || profile.name.givenName, // Use displayName or givenName
           email: profile.emails[0].value, // Use the first email
-          picture: profile.photos[0].value, // Use the profile picture
-          account:profile.provider,
+          picture: profile.photos[0]?.value, // Use the profile picture if available
+          account: profile.provider, // Authentication provider (e.g., 'google')
         });
         await newUser.save();
         done(null, newUser);

@@ -20,7 +20,7 @@ const Products = ({ select }) => {
         : products.filter((product) => product.category === select)
     );
   }, [select, products, setNewProduct]);
- console.log(1);
+//  console.log(1);
   return (
     <div
       className={`flex flex-wrap w-full justify-center border-l-4 h-full gap-8 py-8 px-6 ${
