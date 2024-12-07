@@ -1,4 +1,4 @@
-import { FaGithub } from "react-icons/fa";
+import { FaGithub, FaGoogle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { handleLoginWithGithub, handleLoginWithGoogle } from "../lib/function";
 
@@ -27,7 +27,7 @@ const LoginPage = () => {
               font-medium rounded-lg flex gap-2 p-2 items-center w-full text-center justify-center"
             onClick={handleLoginWithGoogle}
           >
-            <FaGithub className="w-5 h-5" />
+            <FaGoogle className="w-5 h-5" />
             Login with Google
           </button>
           <p className="text-sm font-light text-gray-500">
