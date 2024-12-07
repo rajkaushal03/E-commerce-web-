@@ -1,42 +1,12 @@
-import { useEffect, useState } from "react";
-import { useProductContext } from "../context/ProductContext";
+import { useAdminContext } from "../context/AdminContext";
 import { RiAdminLine } from "react-icons/ri";
-import { handleDelete } from "../utils/function";
 import AdminSideBar from "../Component/AdminSideBar";
 import AddProductForm from "../Component/AddProductForm";
+import { handleDelete } from "../utils/function";
 
 const AdminPage = () => {
-  const { products, setProducts } = useProductContext();
-  const [searchTerm, setSearchTerm] = useState("");
-  const [newProduct, setNewProduct] = useState([]);
-
-  // Update newProduct when products change
-  useEffect(() => {
-    setNewProduct(products);
-  }, [products]);
-
-  useEffect(() => {
-    if (searchTerm === "") {
-      setNewProduct(products);
-    } else {
-      const filteredProducts = products.filter(
-        (p) =>
-          p.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          p.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          p.id.toString().includes(searchTerm.toLowerCase())
-      );
-      setNewProduct(filteredProducts);
-    }
-  }, [searchTerm, products]);
-
-  const handleSort = (criteria) => {
-    const sortedProducts = [...newProduct].sort((a, b) =>
-      criteria === "newest" ? b.id - a.id : a.id - b.id
-    );
-    setNewProduct(sortedProducts);
-  };
-
-  // console.log(newProduct);
+  const { newProduct, setSearchTerm, searchTerm, handleSort, setProducts } =
+    useAdminContext();
 
   return (
     <div className="w-full h-full">
@@ -58,7 +28,6 @@ const AdminPage = () => {
       </div>
       <div>
         {/* Sort by */}
-
         <div className="grid grid-cols-4">
           <div className=" col-span-3 border-r-4">
             <div className="flex items-center space-x-4 px-8 py-4">

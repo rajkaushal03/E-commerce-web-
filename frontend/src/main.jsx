@@ -6,17 +6,20 @@ import { BrowserRouter } from "react-router-dom";
 import { AuthContextProvider } from "./context/AuthContext.jsx";
 import { ThemeContextProvider } from "./context/ThemeContext.jsx";
 import { ProductContextProvideer } from "./context/ProductContext.jsx";
+import { AdminContextProvider } from "./context/AdminContext.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   // <React.StrictMode>
-    <BrowserRouter>
-      <ProductContextProvideer>
-        <ThemeContextProvider>
-          <AuthContextProvider>
+  <BrowserRouter>
+    <ProductContextProvideer>
+      <ThemeContextProvider>
+        <AuthContextProvider>
+          <AdminContextProvider>
             <App />
-          </AuthContextProvider>
-        </ThemeContextProvider>
-      </ProductContextProvideer>
-    </BrowserRouter>
+          </AdminContextProvider>
+        </AuthContextProvider>
+      </ThemeContextProvider>
+    </ProductContextProvideer>
+  </BrowserRouter>
   // </React.StrictMode>
 );
