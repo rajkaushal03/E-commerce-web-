@@ -18,20 +18,23 @@ const DetailPage = () => {
   }
   const isInCart = cart.some((item) => item.id == product.id);
   return (
-    <div className="w-screen flex   h-screen">
-      <div className="flex   h-full items-center">
-        <div className="w-1/2 h-full  flex  items-center justify-center bg-white">
+    <div className="h-screen">
+      <div className="grid grid-cols-8  h-full  items-center">
+
+        <div className=" h-full  flex  items-center justify-center bg-white  col-span-2">
           <img
-            className="w-2/3 hover:scale-125  transition-all duration-1000 ease-in-out  -z-1"
+            className="w-1/2 hover:scale-110  transition-all duration-1000 ease-in-out  -z-1"
             src={product.image}
             alt=""
           />
         </div>
 
-        <div className="text-5xl font-semibold text-center text-gray-900 bg-gray-600 flex items-center h-full dark:text-white p-2">
+        <div className="text-5xl font-semibold text-center text-gray-900 bg-gray-600 flex items-center  justify-center h-full dark:text-white p-2">
           {product.category.toUpperCase()}
         </div>
-        <div className=" bg-black w-full p-10  h-full flex flex-col justify-center">
+
+
+        <div className=" bg-black w-full p-10  h-full flex flex-col justify-center col-span-5">
           <h1 className="text-5xl font-semibold text-gray-900  dark:text-white p-2">
             {product.title}
           </h1>
@@ -140,8 +143,8 @@ const DetailPage = () => {
 
           <hr className="border-gray-200 dark:border-gray-800" />
 
-          <p className="py-10 px-2 text-gray-500 dark:text-gray-400 leading-10">
-            {product.description.toUpperCase()}
+          <p className="py-10 px-2 text-gray-500 dark:text-gray-400 ">
+            {product.description}
           </p>
         </div>
       </div>

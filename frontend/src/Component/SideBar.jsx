@@ -26,36 +26,39 @@ const SideBar = ({ select, setSelect }) => {
   // console.log(Categories);
   return (
     <div
-      className={` text-sm flex flex-col  p-5  w-[18%] sticky top-0 left-0 justify-start h-screen gap-8 py-8  ${
+      className={` text-sm flex flex-col    w-[15%] sticky top-[3rem] left-0 justify-start h-screen overflow-auto gap-8  border-r-4  ${
         theme === "dark" ? "text-white" : ""
       }`}
     >
       {/* Display "All" category */}
-
-      <div className="flex  items-center  gap-2 p-2 font-bold   text-2xl">
-        {" "}
-        <BiCategory /> {"Category"}
+      <div className=" scroll-container">
+        <div className="flex sticky top-0 bg-base-100 border-b-4  h-5 items-center gap-2 py-8 px-2 font-bold  text-2xl">
+          {" "}
+          <BiCategory /> {"Category"}
+        </div>
+        {/* Display individual categories */}
+        <div className="text-xs gap-2 flex flex-col p-2">
+          {Object.keys(Categories)
+            .sort() // Sort the categories in alphabetical order
+            .map((category, index) => {
+              return (
+                <div
+                  key={index}
+                  className={`w-full py-2 px-4 transition-all    hover:shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] duration-800 cursor-pointer rounded-md font-semibold  ${
+                    category === select
+                      ? "bg-blue-500 text-white shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px]"
+                      : ""
+                  }`}
+                  onClick={() => {
+                    setSelect(category);
+                  }}
+                >
+                  <div>{category.toLocaleUpperCase()}</div>
+                </div>
+              );
+            })}
+        </div>
       </div>
-      {/* Display individual categories */}
-      {Object.keys(Categories)
-        .sort() // Sort the categories in alphabetical order
-        .map((category, index) => {
-          return (
-            <div
-              key={index}
-              className={`w-full p-2 transition-all text-md text-center  hover:shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px] duration-800 cursor-pointer rounded-md font-semibold  ${
-                category === select
-                  ? "bg-blue-500 text-white shadow-[rgba(50,50,93,0.25)_0px_6px_12px_-2px,_rgba(0,0,0,0.3)_0px_3px_7px_-3px]"
-                  : ""
-              }`}
-              onClick={() => {
-                setSelect(category);
-              }}
-            >
-              <div>{category.toLocaleUpperCase()}</div>
-            </div>
-          );
-        })}
     </div>
   );
 };

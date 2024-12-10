@@ -3,6 +3,7 @@ import { RiAdminLine } from "react-icons/ri";
 import AdminSideBar from "../Component/AdminSideBar";
 import AddProductForm from "../Component/AddProductForm";
 import { handleDelete } from "../utils/function";
+import UploadProductJSON from "../Component/UploadProductJSON";
 
 const AdminPage = () => {
   const { newProduct, setSearchTerm, searchTerm, handleSort, setProducts } =
@@ -10,11 +11,12 @@ const AdminPage = () => {
 
   return (
     <div className="w-full h-full">
-      <div className="flex justify-between items-center border-b-4 py-2 px-4">
+      <div className="flex justify-between items-center border-b-4 py-2 px-4 sticky top-0 z-30 bg-base-100">
         <h1 className="text-4xl  py-4 flex gap-2">
           <RiAdminLine />
           <strong>Admin Dashboard.....</strong>
         </h1>
+
         <div className="flex gap-8">
           <input
             type="text"
@@ -26,10 +28,13 @@ const AdminPage = () => {
           <AdminSideBar />
         </div>
       </div>
-      <div>
-        {/* Sort by */}
-        <div className="grid grid-cols-4">
-          <div className=" col-span-3 border-r-4">
+
+      {/* page content */}
+      <div className="">
+        <div className="grid grid-cols-5">
+          <div className=" col-span-4 border-r-4">
+            {/* Sort by */}
+
             <div className="flex items-center space-x-4 px-8 py-4">
               <span className="text-lg font-semibold">Sort By:</span>
 
@@ -47,6 +52,8 @@ const AdminPage = () => {
                 Oldest
               </button>
             </div>
+
+            {/* product list */}
             <div className="grid 2xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 px-8 py-2 gap-8 col-span-3 ">
               {newProduct.map((product) => (
                 <div
@@ -110,7 +117,11 @@ const AdminPage = () => {
               ))}
             </div>
           </div>
-          <AddProductForm />
+          <div className="sticky top-0 right-0 h-screen bg-base-200 px-8">
+            <AddProductForm />
+            <div className="divider">OR</div>
+            <UploadProductJSON />
+          </div>
         </div>
         {/* Product list */}
       </div>

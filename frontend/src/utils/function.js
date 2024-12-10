@@ -159,7 +159,7 @@ export const handleStorage = async (newProductData, setProducts) => {
     }
 
     const result = await response.json();
-    setProducts(result.product);
+    setProducts(result.products);
     // console.log("Product successfully added:", result.product);
   } catch (error) {
     console.error("Error adding product:", error.message);

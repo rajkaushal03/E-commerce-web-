@@ -31,7 +31,7 @@ const AdminSideBar = () => {
           className="drawer-overlay"
         ></label>
 
-        <div className="menu md:text-sm 2xl:text-2xl  felx flex-col items-center  bg-white text-base-content min-h-full w-80">
+        <div className="menu md:text-sm 2xl:text-2xl  felx flex-col items-center  bg-base-200 text-base-content min-h-full w-80">
           {/* Sidebar content here */}
           <h1 className="md:text-lg 2xl:text-4xl  font-bold p-4 my-4">AMAZON</h1>
 

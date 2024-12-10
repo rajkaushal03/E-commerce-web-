@@ -13,8 +13,8 @@ const NavBar = () => {
   const { searchTerm, setSearchTerm } = useAdminContext();
   return (
     <div
-      className={`navbar bg-base-100  border-b-4 ${
-        theme === "dark" ? "text-white" : ""
+      className={`navbar bg-base-100  border-b-4 py-3 sticky top-0 z-30 ${
+        theme === "dark" ? "text-white " : ""
       }`}
     >
       <div className="flex-1">

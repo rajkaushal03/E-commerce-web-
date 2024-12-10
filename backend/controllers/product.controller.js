@@ -66,16 +66,79 @@ export const fetchProducts = async (req, res) => {
 };
 
 // Add a new product
+// export const addProduct = async (req, res) => {
+//   try {
+//     const { id, title, price, description, category, image, rating } = req.body;
+
+//     // Validation (optional)
+//     if (!title || !price || !description || !category || !image) {
+//       return res.status(400).json({ error: "All fields are required." });
+//     }
+
+//     // Create a new product
+//     const newProduct = new Product({
+//       id,
+//       title,
+//       price,
+//       description,
+//       category,
+//       image,
+//       rating,
+//     });
+
+//     // Save to MongoDB
+//     await newProduct.save();
+
+//     const updatedProducts = await Product.find();
+
+//     res
+//       .status(201)
+//       .json({
+//         message: "Product added successfully!",
+//         product: updatedProducts,
+//       });
+//   } catch (error) {
+//     console.error("Error adding product:", error.message);
+//     res.status(500).json({ error: "Internal Server Error" });
+//   }
+// };
+
+
 export const addProduct = async (req, res) => {
   try {
     const { id, title, price, description, category, image, rating } = req.body;
 
-    // Validation (optional)
+    // Validation
     if (!title || !price || !description || !category || !image) {
       return res.status(400).json({ error: "All fields are required." });
     }
 
-    // Create a new product
+    // Check for a product with the same title or image
+    const existingProduct = await Product.findOne({
+      $or: [{ title }, { image }],
+    });
+
+    if (existingProduct) {
+      // Update the existing product while keeping its id unchanged
+      existingProduct.title = title;
+      existingProduct.price = price;
+      existingProduct.description = description;
+      existingProduct.category = category;
+      existingProduct.image = image;
+      existingProduct.rating = rating;
+
+      await existingProduct.save();
+
+      // Fetch all products after the update
+      const allProducts = await Product.find();
+
+      return res.status(200).json({
+        message: "Existing product updated successfully!",
+        products: allProducts,
+      });
+    }
+
+    // Create a new product if no matching title or image is found
     const newProduct = new Product({
       id,
       title,
@@ -86,19 +149,21 @@ export const addProduct = async (req, res) => {
       rating,
     });
 
-    // Save to MongoDB
     await newProduct.save();
 
-    const updatedProducts = await Product.find()
+    // Fetch all products after adding the new product
+    const allProducts = await Product.find();
 
-    res
-      .status(201)
-      .json({ message: "Product added successfully!", product: updatedProducts });
+    res.status(201).json({
+      message: "New product added successfully!",
+      products: allProducts,
+    });
   } catch (error) {
-    console.error("Error adding product:", error.message);
+    console.error("Error adding or updating product:", error.message);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
 
 // export const deleteProduct = async (req, res) => {
 //   const { id } = req.body;
@@ -164,4 +229,3 @@ export const deleteProduct = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
-
