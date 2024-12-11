@@ -8,11 +8,13 @@ export const useProductContext = () => {
   return useContext(ProductContext);
 };
 
-export const ProductContextProvideer = ({ children }) => {
+export const ProductContextProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
   const [total, setTotal] = useState(0);
   const [select, setSelect] = useState("All");
+  const [searchVisi, setSearchVisi] = useState(false);
+
 
 
   useEffect(() => {
@@ -34,7 +36,7 @@ export const ProductContextProvideer = ({ children }) => {
 
   return (
     <ProductContext.Provider
-      value={{ products, cart, setCart, total, setTotal, select , setSelect,setProducts }}
+      value={{ products, cart, setCart, total, setTotal, select , setSelect,setProducts,searchVisi,setSearchVisi }}
     >
       {children}
     </ProductContext.Provider>

@@ -5,13 +5,13 @@ import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { AuthContextProvider } from "./context/AuthContext.jsx";
 import { ThemeContextProvider } from "./context/ThemeContext.jsx";
-import { ProductContextProvideer } from "./context/ProductContext.jsx";
+import { ProductContextProvider } from "./context/ProductContext.jsx";
 import { AdminContextProvider } from "./context/AdminContext.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   // <React.StrictMode>
   <BrowserRouter>
-    <ProductContextProvideer>
+    <ProductContextProvider>
       <ThemeContextProvider>
         <AuthContextProvider>
           <AdminContextProvider>
@@ -19,7 +19,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           </AdminContextProvider>
         </AuthContextProvider>
       </ThemeContextProvider>
-    </ProductContextProvideer>
+    </ProductContextProvider>
   </BrowserRouter>
   // </React.StrictMode>
 );

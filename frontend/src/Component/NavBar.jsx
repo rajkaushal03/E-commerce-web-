@@ -4,12 +4,13 @@ import { useThemeContext } from "../context/ThemeContext";
 import { RiAdminLine } from "react-icons/ri";
 import { useProductContext } from "../context/ProductContext";
 import { handleLogout } from "../lib/function";
+import { GrSearch } from "react-icons/gr";
 import { useAdminContext } from "../context/AdminContext";
 
 const NavBar = () => {
   const { authUser, setAuthUser, AdminAccess } = useAuthContext();
   const { theme, toggleTheme } = useThemeContext();
-  const { cart, total } = useProductContext();
+  const { cart, total, searchVisi, setSearchVisi } = useProductContext();
   const { searchTerm, setSearchTerm } = useAdminContext();
   return (
     <div
@@ -18,26 +19,37 @@ const NavBar = () => {
       }`}
     >
       <div className="flex-1">
-        <a className="btn btn-ghost text-xl">Amazon</a>
+        <a className="btn btn-ghost md:text-xl text-sm">Amazon</a>
       </div>
 
       <div className="flex gap-2">
-        <input
-          type="text"
-          placeholder="Search"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="input input-bordered 2xl:w-96 md:w-auto"
-        />
+        {!searchVisi ? (
+          <input
+            type="text"
+            placeholder="Search"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="input input-bordered sm:input-sm input-xs  lg:input-md lg:w-96 md:w-80 sm:w-52 w-28 "
+          />
+        ) : (
+          <></>
+        )}
+        <div onClick={() => setSearchVisi((prev) => !prev)}>
+          <GrSearch
+            className={`cursor-pointer   border-4 sm:hidden rounded-full sm:w-10 sm:h-10 sm:p-2 w-6 p-1 h-6 text-xs ${
+              !searchVisi ? "bg-base-300 hidden" : "bg-base-100  "
+            }`}
+          />
+        </div>
 
         {/* profile  */}
-        <div className="dropdown dropdown-end">
+        <div className="dropdown  dropdown-end">
           <div
             tabIndex={0}
             role="button"
             className=" btn btn-ghost btn-circle avatar"
           >
-            <div className="ring-primary ring-offset-base-100 w-10 rounded-full ring ring-offset-2">
+            <div className="ring-accent ring-offset-base-300 sm:w-10 w-8 rounded-full ring ring-offset-2">
               <img src={authUser?.picture} alt="u" />
             </div>
           </div>
