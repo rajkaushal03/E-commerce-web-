@@ -19,7 +19,7 @@ const AdminSideBar = () => {
         {/* Page content here */}
         <label
           htmlFor="my-drawer-4"
-          className=" cursor-pointer text-3xl font-bold drawer-button "
+          className=" cursor-pointer text-lg sm:text-xl lg:text-3xl font-bold drawer-button "
         >
           <RxHamburgerMenu />
         </label>

@@ -17,14 +17,14 @@ const CartItem = () => {
     handleRemoveFromCart(itemId, cart, setCart, authUser);
 
   return (
-    <div className="w-[80%] gap-8 px-8 flex flex-col">
+    <div className="md:w-[80%] w-full gap-8 md:px-8 flex flex-col">
       {cart.map((cartItem) => (
         <div
-          className="w-full h-32 flex justify-between p-2 shadow-xl border-2 border-black rounded-lg"
+          className="w-full md:h-32 h-70 md:flex md:justify-between p-2 shadow-xl border-2 border-black rounded-lg"
           key={cartItem.id}
         >
           {/* Product Image */}
-          <div className="bg-white cursor-pointer px-2 w-[15%]">
+          <div className="bg-white cursor-pointer px-2 md:w-[15%] w-full h-48 md:h-full">
             <Link to="/detail" state={{ cartItem }}>
               <img
                 className="w-full h-full p-3 hover:scale-110 transition-transform duration-1000 ease-in-out object-scale-down"
@@ -35,20 +35,20 @@ const CartItem = () => {
           </div>
 
           {/* Product Details */}
-          <div className="flex justify-between items-center h-full p-3 gap-3 w-[85%]">
-            <h5 className="text-md font-semibold flex flex-col items-start">
+          <div className="md:flex md:justify-between 2xl:text-lg text-xs md:items-center h-full p-3 gap-3 md:w-[85%] w-full">
+            <h5 className="2xl:text-lg text-xs font-semibold flex flex-col items-start">
               <Link to="/detail" state={{ cartItem }}>
                 <span className="hover:underline cursor-pointer">
                   {cartItem.title}
                 </span>
               </Link>
-              <span className="text-md font-bold text-gray-400">
-                ${cartItem.price}
-              </span>
             </h5>
 
             {/* Actions */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center justify-end gap-3">
+              <span className="text-md font-bold text-gray-400">
+                ${cartItem.price}
+              </span>
               <div className="flex items-center border-2 p-2">
                 <button
                   aria-label="Decrease quantity"

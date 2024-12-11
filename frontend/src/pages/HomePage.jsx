@@ -9,7 +9,7 @@ const HomePage = () => {
   return (
     <>
       <NavBar />
-      <div className="flex ">
+      <div className="flex  ">
         <>
           <SideBar setSelect={setSelect} select={select} />
           <Products select={select} />

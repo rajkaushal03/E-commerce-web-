@@ -6,14 +6,14 @@ const UploadProductJSON = () => {
 
   return (
     <div className="">
-      <h1 className="text-xl font-bold py-4">Upload Products via JSON</h1>
+      <h1 className="2xl:text-xl text-xs lg:text-sm font-bold py-4">Upload Products via JSON</h1>
 
       {/* File Input */}
       <input
         type="file"
         accept=".json"
         onChange={handleFileSelection}
-        className="input input-bordered w-full mb-4 h-full p-2"
+        className="input input-bordered 2xl:input-md input-xs w-full mb-4 h-full p-2"
       />
 
       {/* Add Data Button */}
@@ -27,7 +27,7 @@ const UploadProductJSON = () => {
       )}
 
       {/* Info */}
-      <p className="text-sm text-gray-500 mt-4">
+      <p className="2xl:text-sm text-xs text-gray-500 mt-4">
         Upload a JSON file containing an array of products. Each product must
         include the following fields: <strong>title</strong>,{" "}
         <strong>price</strong>, <strong>description</strong>,{" "}

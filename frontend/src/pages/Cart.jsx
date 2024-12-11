@@ -16,7 +16,7 @@ const Cart = () => {
       }`}
     >
       {/* Header */}
-      <div className="text-3xl p-3 font-bold flex justify-between">
+      <div className="2xl:text-3xl md:text-xl p-3 font-bold flex justify-between">
         <span className="flex gap-2">
           Shopping Cart... <BsCart4 />
         </span>
@@ -58,13 +58,12 @@ const Cart = () => {
           </Link>
         </div>
       ) : (
-        <div className="flex w-full">
+        <div className="flex md:flex-row flex-col w-full gap-4">
           {/* cart items */}
-          <CartItem cart={cart} setCart={setCart} />
 
           {/* cart payment gateway */}
-          <div className="flex flex-col text-lg w-[20%] items-center gap-5 font-semibold rounded-lg p-5 h-full shadow-md">
-            <h1 className="w-full text-center flex gap-2">
+          <div className="flex flex-col 2xl:text-lg text-xs md:w-[20%] w-full items-center gap-5 font-semibold rounded-lg p-5 h-full shadow-md">
+            <h1 className="w-full text-center 2xl:flex gap-2">
               Subtotal ({cart.length} items):{" "}
               <span className="text-green-600">${total}</span>
             </h1>
@@ -75,12 +74,13 @@ const Cart = () => {
             </Link>
 
             <Link to="/" className="w-full">
-              <button className="w-full bg-blue-500 p-2 rounded-lg flex gap-2  items-center justify-center text-base text-white">
+              <button className="w-full bg-blue-500 p-2 rounded-lg flex gap-2  items-center justify-center  text-white">
                 <GoHome />
                 Go Home
               </button>
             </Link>
           </div>
+          <CartItem cart={cart} setCart={setCart} />
         </div>
       )}
     </div>

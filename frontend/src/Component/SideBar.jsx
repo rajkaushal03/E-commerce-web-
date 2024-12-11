@@ -26,13 +26,13 @@ const SideBar = ({ select, setSelect }) => {
   // console.log(Categories);
   return (
     <div
-      className={` text-sm flex flex-col    w-[15%] sticky top-[3rem] left-0 justify-start h-screen overflow-auto gap-8  border-r-4  ${
+      className={`  flex flex-col    2xl:w-[15%] lg:w-[20%]  sticky top-[3rem] left-0 justify-start h-fit  overflow-auto gap-8  border-r-4  ${
         theme === "dark" ? "text-white" : ""
       }`}
     >
       {/* Display "All" category */}
       <div className=" scroll-container">
-        <div className="flex sticky top-0 bg-base-100 border-b-4  h-5 items-center gap-2 py-8 px-2 font-bold  text-2xl">
+        <div className="flex sticky top-0 bg-base-100   h-5 items-center gap-2 2xl:py-8  md:py-6 px-2 font-bold md:text-lg lg:text-xl 2xl:text-2xl">
           {" "}
           <BiCategory /> {"Category"}
         </div>
