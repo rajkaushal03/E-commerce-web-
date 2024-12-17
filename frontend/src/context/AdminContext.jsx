@@ -17,10 +17,11 @@ export const AdminContextProvider = ({ children }) => {
   const [newProduct, setNewProduct] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [file, setFile] = useState(null); // State to store the selected file
+  const [Image, setImage] = useState(null); // State to store the selected file
   const [errorMessage, setErrorMessage] = useState(null); // State for error message
 
   const lastId =
-  products.length > 0 ? Math.max(...products.map((p) => p.id)) : 0;
+    products.length > 0 ? Math.max(...products.map((p) => p.id)) : 0;
 
   // Sync newProduct with products
   useEffect(() => {
@@ -57,6 +58,40 @@ export const AdminContextProvider = ({ children }) => {
       setFile(selectedFile);
       setErrorMessage(null); // Reset error message on new selection
     }
+  };
+  const handleImageSelection = (e) => {
+    const selectedFile = e.target.files[0]; // Get the first file from the input
+
+    if (!selectedFile) {
+      setImage(null); // Clear the file state if no file is selected
+      setErrorMessage("No file selected. Please choose an image.");
+      return;
+    }
+
+    // Validate file type (ensure it's an image)
+    const validImageTypes = ["image/jpeg", "image/png", "image/gif"];
+    if (!validImageTypes.includes(selectedFile.type)) {
+      setImage(null); // Reset the file state
+      setErrorMessage(
+        "Invalid file type. Please upload a valid image (JPEG, PNG, GIF)."
+      );
+      return;
+    }
+
+    // Validate file size (e.g., limit to 5MB)
+    const maxSizeInMB = 5;
+    const maxSizeInBytes = maxSizeInMB * 1024 * 1024;
+    if (selectedFile.size > maxSizeInBytes) {
+      setImage(null); // Reset the file state
+      setErrorMessage(
+        `File is too large. Please upload an image smaller than ${maxSizeInMB}MB.`
+      );
+      return;
+    }
+
+    // If all validations pass, update the file state and clear errors
+    setImage(selectedFile);
+    setErrorMessage(null);
   };
 
   // Handle file upload
@@ -125,26 +160,43 @@ export const AdminContextProvider = ({ children }) => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-
+  
     // Extract form data and create a new product
     const newProductData = {
       id: lastId + 1,
-      title: e.target.title.value,
+      title: e.target.title.value.trim(),
       price: parseFloat(e.target.price.value),
-      description: e.target.description.value,
-      category: e.target.category.value,
-      image: e.target.image.value, // Fixed input name for image URL
+      description: e.target.description.value.trim(),
+      category: e.target.category.value.trim(),
+      image: e.target.image.value || (Image ? URL.createObjectURL(Image) : ""), // Use uploaded image if available
       rating: { rate: 5, count: 100 }, // Default rating values
     };
-
-    // Optionally, you could add logic to update the products context or backend
-    // console.log("New Product Added:", newProductData);
-    handleStorage(newProductData, setProducts);
-
-    // Reset form fields after submission
+  
+    // Validate required fields
+    const requiredFields = ["title", "price", "description", "category", "image"];
+    const missingFields = requiredFields.filter((field) => !newProductData[field]);
+  
+    if (missingFields.length > 0) {
+      setErrorMessage(`Missing required fields: ${missingFields.join(", ")}`);
+      return;
+    }
+  
+    // Update the context or backend
+    try {
+      handleStorage(newProductData, setProducts);
+      console.log("New Product Added:", newProductData);
+      setErrorMessage(null); // Clear any existing error
+    } catch (error) {
+      console.error("Error adding product:", error);
+      setErrorMessage("Failed to add product. Please try again.");
+      return;
+    }
+  
+    // Reset form fields and image state after submission
     e.target.reset();
+    setImage(null);
   };
-
+  
   return (
     <AdminContext.Provider
       value={{
@@ -155,11 +207,12 @@ export const AdminContextProvider = ({ children }) => {
         handleSort,
         setProducts,
         file,
+        handleImageSelection,
         lastId,
         errorMessage,
         handleFileSelection,
         handleFileUpload,
-        handleFormSubmit
+        handleFormSubmit,
       }}
     >
       {children}

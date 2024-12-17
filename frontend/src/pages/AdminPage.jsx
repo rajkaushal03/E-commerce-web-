@@ -119,7 +119,7 @@ const AdminPage = () => {
               ))}
             </div>
           </div>
-          <div className="2xl:sticky 2xl:top-0 2xl:right-0 2xl:h-screen h-fit bg-base-200 px-8 py-2">
+          <div className="2xl:sticky 2xl:top-0 2xl:right-0  h-fit bg-base-200 px-8 py-2">
             <AddProductForm />
             <div className="divider">OR</div>
             <UploadProductJSON />
