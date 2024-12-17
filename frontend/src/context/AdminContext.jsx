@@ -17,7 +17,6 @@ export const AdminContextProvider = ({ children }) => {
   const [newProduct, setNewProduct] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [file, setFile] = useState(null); // State to store the selected file
-  const [Image, setImage] = useState(null); // State to store the selected file
   const [errorMessage, setErrorMessage] = useState(null); // State for error message
 
   const lastId =
@@ -59,40 +58,7 @@ export const AdminContextProvider = ({ children }) => {
       setErrorMessage(null); // Reset error message on new selection
     }
   };
-  const handleImageSelection = (e) => {
-    const selectedFile = e.target.files[0]; // Get the first file from the input
-
-    if (!selectedFile) {
-      setImage(null); // Clear the file state if no file is selected
-      setErrorMessage("No file selected. Please choose an image.");
-      return;
-    }
-
-    // Validate file type (ensure it's an image)
-    const validImageTypes = ["image/jpeg", "image/png", "image/gif"];
-    if (!validImageTypes.includes(selectedFile.type)) {
-      setImage(null); // Reset the file state
-      setErrorMessage(
-        "Invalid file type. Please upload a valid image (JPEG, PNG, GIF)."
-      );
-      return;
-    }
-
-    // Validate file size (e.g., limit to 5MB)
-    const maxSizeInMB = 5;
-    const maxSizeInBytes = maxSizeInMB * 1024 * 1024;
-    if (selectedFile.size > maxSizeInBytes) {
-      setImage(null); // Reset the file state
-      setErrorMessage(
-        `File is too large. Please upload an image smaller than ${maxSizeInMB}MB.`
-      );
-      return;
-    }
-
-    // If all validations pass, update the file state and clear errors
-    setImage(selectedFile);
-    setErrorMessage(null);
-  };
+  
 
   // Handle file upload
   const handleFileUpload = async () => {
@@ -160,6 +126,8 @@ export const AdminContextProvider = ({ children }) => {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
+
+  
   
     // Extract form data and create a new product
     const newProductData = {
@@ -168,14 +136,16 @@ export const AdminContextProvider = ({ children }) => {
       price: parseFloat(e.target.price.value),
       description: e.target.description.value.trim(),
       category: e.target.category.value.trim(),
-      image: e.target.image.value || (Image ? URL.createObjectURL(Image) : ""), // Use uploaded image if available
+      image: e.target.image.value ,
       rating: { rate: 5, count: 100 }, // Default rating values
     };
-  
+    
     // Validate required fields
-    const requiredFields = ["title", "price", "description", "category", "image"];
+    const requiredFields = ["title", "price", "description", "category"];
     const missingFields = requiredFields.filter((field) => !newProductData[field]);
   
+
+    
     if (missingFields.length > 0) {
       setErrorMessage(`Missing required fields: ${missingFields.join(", ")}`);
       return;
@@ -194,7 +164,6 @@ export const AdminContextProvider = ({ children }) => {
   
     // Reset form fields and image state after submission
     e.target.reset();
-    setImage(null);
   };
   
   return (
@@ -207,7 +176,6 @@ export const AdminContextProvider = ({ children }) => {
         handleSort,
         setProducts,
         file,
-        handleImageSelection,
         lastId,
         errorMessage,
         handleFileSelection,

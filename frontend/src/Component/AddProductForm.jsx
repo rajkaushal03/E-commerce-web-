@@ -59,27 +59,17 @@ const AddProductForm = () => {
           />
         </div>
         {/* Image URL */}
-        <div className="2xl:flex  2xl:items-center 2xl:justify-between  w-full ">
-          <div htmlFor="image" className="font-bold">
+        <div className="2xl:flex items-center justify-between">
+          <div htmlFor="image" className="block font-bold">
             ImgURL:
           </div>
-          <div className="flex flex-col justify-center items-center">
-            <input
-              type="url"
-              id="image"
-              name="image"
-              className="input input-bordered input-sm   w-full "
-              placeholder="Enter a valid image URL"
-            />
-            <div className="divider">OR</div>
-
-            <input
-              type="file"
-              accept="image/*"
-              // onChange={handleFileSelection}
-              className="input input-bordered  input-xs w-full  mb-4 h-full p-2"
-            />
-          </div>
+          <input
+            type="url"
+            id="image"
+            name="image"
+            className="input input-bordered input-sm  2xl:w-2/3   w-full "
+            placeholder="Enter a valid image URL..."
+          />
         </div>
         {/* Description */}
         <div className="gap-2">

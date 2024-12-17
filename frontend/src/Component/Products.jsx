@@ -23,7 +23,7 @@ const Products = ({ select }) => {
   //  console.log(1);
   return (
     <div
-      className={`w-full  2xl:grid-cols-4 h-full grid-cols-1 grid lg:grid-cols-3 sm:grid-cols-2 gap-8 py-3  px-6 ${
+      className={`w-full  md:border-l-4 2xl:grid-cols-4 h-full grid-cols-1 grid lg:grid-cols-3 sm:grid-cols-2 gap-8 py-3  px-6 ${
         theme === "dark" ? "text-white" : ""
       }`}
     >

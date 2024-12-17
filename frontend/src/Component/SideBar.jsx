@@ -76,7 +76,7 @@ const SideBar = ({ select, setSelect }) => {
         </div>
       </div>
       <div
-        className={`  md:flex flex-col hidden    2xl:w-[15%] lg:w-[20%]  sticky top-[3rem] left-0 justify-start h-full  overflow-auto gap-8  border-r-4  ${
+        className={`  md:flex flex-col hidden    2xl:w-[15%] lg:w-[20%]  sticky top-[3rem] left-0 justify-start h-full  overflow-auto gap-8    ${
           theme === "dark" ? "text-white" : ""
         }`}
       >
